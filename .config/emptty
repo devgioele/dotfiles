@@ -1,6 +1,8 @@
 #!/bin/bash
 
+#
 # Script run after emptty login
+#
 
 Environment=wayland
 
@@ -9,4 +11,5 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # Let qt5ct configure Qt5 applications
 export QT_QPA_PLATFORMTHEME=qt5ct
 
-sway
+# Start sway, the Wayland compositor and window manager
+exec sway

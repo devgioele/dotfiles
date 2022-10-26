@@ -49,6 +49,7 @@ PROMPT='%F{069}%n%f%F{11}@%f%F{069}%M%f%F{11}:%f%F{7}%~%f%F{11}>%f '
 #
 
 alias ls="ls -la --color=auto"
+alias du="du -ahc --max-depth 1"
 
 #
 # Configure akward commands that are akward

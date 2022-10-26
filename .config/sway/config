@@ -9,15 +9,18 @@ set $left h
 set $down j
 set $up k
 set $right l
+# Pulseaudio sink
+set $pa_sink 5
+# Pulseaudio source
+set $pa_source 7
 # Your preferred terminal emulator
 set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-
-# Launch via Sway
+# - Launch via Sway
 # set $menu tofi-drun | xargs swaymsg exec --
-# Launch directly
+# - Launch directly
 set $menu tofi-drun --drun-launch=true
 
 ### Output configuration
@@ -204,6 +207,21 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+#
+# Controlling audio
+#
+    # Decrease volume of sink
+    bindsym $mod+F4 exec pactl set-sink-volume $pa_sink -5%
+    # Toggle mute status of sink
+    bindsym $mod+F5 exec pactl set-sink-mute $pa_sink toggle
+    # Increase volume of sink
+    bindsym $mod+F6 exec pactl set-sink-volume $pa_sink +5%
+    # Decrease volume of source
+    bindsym $mod+F7 exec pactl set-source-volume $pa_source -5%
+    # Toggle mute status of source
+    bindsym $mod+F8 exec pactl set-source-mute $pa_source toggle
+    # Increase volume of source
+    bindsym $mod+F9 exec pactl set-source-volume $pa_source +5%
 
 #
 # Aesthetics
