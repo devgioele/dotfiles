@@ -102,10 +102,10 @@
     "pulseaudio": {
         "rotate": 90,
         "scroll-step": 0,
-        "format": "{volume}  {icon}      {format_source}",
-        "format-bluetooth": "{volume}  {icon} {format_source}",
-        "format-bluetooth-muted": "{icon} {format_source}",
-        "format-muted": "{volume}        {format_source}",
+        "format": "{volume}  {icon}",
+        "format-bluetooth": "{volume}  {icon}",
+        "format-bluetooth-muted": "{icon}",
+        "format-muted": "{volume}   ",
         "format-source": "{volume}  ",
         "format-source-muted": "{volume}  ",
         "format-icons": {
