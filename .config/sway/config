@@ -12,10 +12,10 @@ set $right l
 # Pulseaudio sink
 set $pa_sink 5
 # Pulseaudio source
-set $pa_source 7
-# Your preferred terminal emulator
+#set $pa_source 7
+# Terminal emulator
 set $term alacritty
-# Your preferred application launcher
+# Application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # - Launch via Sway
@@ -65,6 +65,7 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 input type:keyboard {
 	repeat_delay 250
 	repeat_rate 25
+	xkb_layout "eu"
 }
 
 ### Key bindings
@@ -210,18 +211,18 @@ bindsym $mod+r mode "resize"
 #
 # Controlling audio
 #
-    # Decrease volume of sink
-    bindsym $mod+F4 exec pactl set-sink-volume $pa_sink -5%
-    # Toggle mute status of sink
-    bindsym $mod+F5 exec pactl set-sink-mute $pa_sink toggle
-    # Increase volume of sink
-    bindsym $mod+F6 exec pactl set-sink-volume $pa_sink +5%
-    # Decrease volume of source
-    bindsym $mod+F7 exec pactl set-source-volume $pa_source -5%
-    # Toggle mute status of source
-    bindsym $mod+F8 exec pactl set-source-mute $pa_source toggle
-    # Increase volume of source
-    bindsym $mod+F9 exec pactl set-source-volume $pa_source +5%
+    # Decrease volume of default sink
+    bindsym $mod+F4 exec pactl set-sink-volume $(pactl get-default-sink) -5%
+    # Toggle mute status of default sink
+    bindsym $mod+F5 exec pactl set-sink-mute $(pactl get-default-sink) toggle
+    # Increase volume of default sink
+    bindsym $mod+F6 exec pactl set-sink-volume $(pactl get-default-sink) +5%
+    # Decrease volume of default source
+    #bindsym $mod+F7 exec pactl set-source-volume $(pactl get-default-source) -5%
+    # Toggle mute status of default source
+    #bindsym $mod+F8 exec pactl set-source-mute $(pactl get-default-source) toggle
+    # Increase volume of default source
+    #bindsym $mod+F9 exec pactl set-source-volume $(pactl get-default-source) +5%
 
 #
 # Aesthetics
@@ -254,5 +255,8 @@ exec polkit-dumb-agent
 
 # Wallpaper
 exec swaybg -i ~/media/wallpapers/paisley-blue.jpg -m fill
+
+# Set volume of all sinks
+exec ~/scripts/zero_all_sinks.sh
 
 include /etc/sway/config.d/*
