@@ -1,11 +1,8 @@
 #
 # ~/.zshrc
 #
-# - Inspure by https://github.com/LukeSmithxyz/voidrice
+# - Inspired by https://github.com/LukeSmithxyz/voidrice
 #
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 #
 # History settings
@@ -16,23 +13,8 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
 
-#
-# Key bindings
-# - Inspired by https://silvercircle.subspace.cc/2017/10/26/cygwin-zsh-delete-home-end-keys/
-#
-
-# Use vi-like defaults
-bindkey -v
-# ctrl-left and ctrl-right
-bindkey "\e[1;5D" backward-word
-bindkey "\e[1;5C" forward-word
-# ctrl-bs and ctrl-del
-bindkey "\e[3;5~" kill-word
-bindkey "^H"      backward-kill-word
-# del, home and end
-bindkey "\e[3~"   delete-char
-bindkey "\e[H"    beginning-of-line
-bindkey "\e[F"    end-of-line
+# Extended globs
+setopt extended_glob
 
 #
 # Prompt theme
@@ -50,6 +32,54 @@ PROMPT='%F{069}%n%f%F{11}@%f%F{069}%M%f%F{11}:%f%F{7}%~%f%F{11}>%f '
 
 alias ls="ls -la --color=auto"
 alias du="du -ahc --max-depth 1"
+alias gemini="amfora"
+alias cp="cp -i"
+alias df="df -h"
+alias free="free -m"
+alias torrent="transmission-remote"
+alias timer='() { TIME=$(calc -p $1); echo "$TIME seconds starting from now!"; sleep $(calc -p $1); echo "Time is over!" }'
+alias stopwatch='() { echo "Stopwatch started!"; time sh -c read }'
+alias steamcmd="steamcmd +force_install_dir games +login"
+
+#
+# Directory aliases
+#
+alias media="cd /mnt/turtle/media"
+
+
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+    tmp="$(mktemp -uq)"
+    trap 'rm -f $tmp >/dev/null 2>&1' HUP INT QUIT TERM PWR EXIT
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+
+#
+# Key bindings
+#
+
+# cd using lf
+bindkey -s '^o' '^ulfcd\n'
+# bc, the arbitrary precision calculator, but with the mathlib and quiet
+bindkey -s '^a' '^ubc -lq\n'
+# cd with fuzzy finding
+bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n'
+
+setopt autocd		# Automatically cd into typed directory.
+stty stop undef		# Disable ctrl-s to freeze terminal.
+setopt interactive_comments
+
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+# Include hidden files
+_comp_options+=(globdots)
 
 #
 # Configure akward commands that are akward

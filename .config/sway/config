@@ -172,6 +172,9 @@ input type:keyboard {
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
+    # Move focus to a child container
+    bindsym $mod+z focus child
 #
 # Scratchpad:
 #
@@ -204,10 +207,28 @@ mode "resize" {
     bindsym Right resize grow width 10px
 
     # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
 }
 bindsym $mod+r mode "resize"
+
+#
+# Exit mode
+#
+set $exit "prlh"
+mode $exit {
+    # loginctl allows graphical sessions to run power-related commands without being root
+    bindsym --to-code {
+        p exec loginctl poweroff
+        r exec loginctl reboot
+        l exec swaymsg exit
+        h exec loginctl hibernate
+        
+        # Return to default mode
+        $mod+x mode "default"
+    }
+}
+bindsym --to-code $mod+x mode $exit
+
 #
 # Controlling audio
 #
@@ -254,9 +275,6 @@ bar {
 exec polkit-dumb-agent
 
 # Wallpaper
-exec swaybg -i ~/media/wallpapers/paisley-blue.jpg -m fill
-
-# Set volume of all sinks
-exec ~/scripts/zero_all_sinks.sh
+exec swaybg -i ~/.config/sway/bg.jpg -m fill
 
 include /etc/sway/config.d/*

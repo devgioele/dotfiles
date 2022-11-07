@@ -4,8 +4,8 @@
     "spacing": 4,
     // Order of modules in each section: left, center, right
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["tray", "mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "sway/language", "clock"],
+    "modules-center": [],
+    "modules-right": ["tray", "idle_inhibitor", "mpd", "pulseaudio", "network#wlan", "network#eth", "cpu", "memory", "temperature", "sway/language", "clock"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -16,7 +16,7 @@
     },
     "sway/mode": {
         "rotate": 90,
-        "format": "<span style=\"italic\">{}</span>",
+        "format": "{}",
         "tooltip": false
     },
     "sway/language": {
@@ -87,17 +87,25 @@
         "format-icons": ["", "", ""],
         "tooltip": false
     },
-    "network": {
+    "network#wlan": {
         "rotate": 90,
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "interface": "wlan0",
         "format-wifi": "   {signalStrength}   祝 {bandwidthUpBytes}    {bandwidthDownBytes}",
-        "format-ethernet": "   祝 {bandwidthUpBytes}    {bandwidthDownBytes}",
         "tooltip-format": "{ifname}\n{gwaddr}",
-        "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}",
         "tooltip-format-wifi": "{essid}\n{ifname}\n{gwaddr}\n{signaldBm}dBm",
         "format-linked": "",
         "format-disconnected": "",
-        "interval": 3
+        "interval": 1
+    },
+    "network#eth": {
+        "rotate": 90,
+        "interface": "eth0",
+        "format-ethernet": "   祝 {bandwidthUpBytes}    {bandwidthDownBytes}",
+        "tooltip-format": "{ifname}\n{gwaddr}",
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}",
+        "format-linked": "",
+        "format-disconnected": "",
+        "interval": 1
     },
     "pulseaudio": {
         "rotate": 90,
