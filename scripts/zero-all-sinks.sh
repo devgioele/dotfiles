@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Set the volume of each sink to zero
 for sink in $(pactl list short sinks | grep -oP "alsa_output[^\s]*")

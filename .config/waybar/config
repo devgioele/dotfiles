@@ -5,7 +5,7 @@
     // Order of modules in each section: left, center, right
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
-    "modules-right": ["tray", "idle_inhibitor", "mpd", "pulseaudio", "network#wlan", "network#eth", "cpu", "memory", "temperature", "sway/language", "clock"],
+    "modules-right": ["tray", "idle_inhibitor", "mpd", "pulseaudio", "network#wlan", "cpu", "memory", "temperature", "sway/language", "clock"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -63,7 +63,9 @@
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format": "{:%H\n%M\n%S}",
-        "format-alt": "{:%d %B, %Y}",
+        // "format-alt": "{:%d %B, %Y}",
+        "timezone": "Europe/Berlin",
+        "locale": "en_IE.UTF-8",
         "interval": 1
     },
     "cpu": {
@@ -78,14 +80,15 @@
     },
     "temperature": {
         "rotate": 90,
-        // "thermal-zone": 2,
+        "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
         "format-critical": "{icon}  {temperatureC}° C",
         "format": "{icon}  {temperatureC} °C",
         // Icon according to current temperature from low to high
         "format-icons": ["", "", ""],
-        "tooltip": false
+        "tooltip": false,
+        "interval": 4
     },
     "network#wlan": {
         "rotate": 90,

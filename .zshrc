@@ -5,6 +5,12 @@
 #
 
 #
+# Env vars
+#
+export EDITOR=helix
+export BROWSER=brave
+
+#
 # History settings
 #
 
@@ -36,21 +42,48 @@ alias gemini="amfora"
 alias cp="cp -i"
 alias df="df -h"
 alias free="free -m"
-alias torrent="transmission-remote"
-alias timer='() { TIME=$(calc -p $1); echo "$TIME seconds starting from now!"; sleep $(calc -p $1); echo "Time is over!" }'
-alias stopwatch='() { echo "Stopwatch started!"; time sh -c read }'
-alias steamcmd="steamcmd +force_install_dir games +login"
+alias torrent="stig"
+alias calc="bc -lq"
+alias irc="catgirl"
+alias mail="neomutt"
+alias scanqr="~/scripts/qr-from-screen.sh"
 
 #
 # Directory aliases
 #
+
 alias media="cd /mnt/turtle/media"
 
+#
+# Functions
+#
 
-# Use lf to switch directories and bind it to ctrl-o
+function timer { 
+    if [ -z "$1" ]
+    then
+        echo "Missing number of seconds!"
+    else
+        TIME=$(echo "$1" | bc -lq)
+        echo "$TIME seconds starting from now!"
+        sleep $TIME
+        echo "Time is over!"
+        notify-send "Time is over!"
+    fi
+}
+
+function stopwatch {
+    echo "Stopwatch started!"
+    # Wierdly enough, 'time' sends the result to stderr.
+    # '2>&1' is to redirect the stderr of 'time' to stdout
+    TIME=$(2>&1 time sh -c "read REPLY")
+    echo "$TIME seconds have elapsed." | sed "s/\(.*cpu \| total\)//g"
+}
+
+
+# Use lf to switch directories
 lfcd () {
     tmp="$(mktemp -uq)"
-    trap 'rm -f $tmp >/dev/null 2>&1' HUP INT QUIT TERM PWR EXIT
+    trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
     lf -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
