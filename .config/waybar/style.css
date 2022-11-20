@@ -102,6 +102,11 @@
   
   #network.wlan.linked,
   #network.eth.linked {
+    color: #686fd1;
+  }
+
+  #network.wlan.disconnected
+  #network.eth.disconnected {
     color: #FFB900;
   }
   
