@@ -47,6 +47,8 @@ alias calc="bc -lq"
 alias irc="catgirl"
 alias mail="neomutt"
 alias scanqr="~/scripts/qr-from-screen.sh"
+alias gemini="amfora"
+alias notify-play="mpv --no-terminal /usr/share/sounds/notification.mp3"
 
 #
 # Directory aliases
@@ -67,7 +69,8 @@ function timer {
         echo "$TIME seconds starting from now!"
         sleep $TIME
         echo "Time is over!"
-        notify-send "Time is over!"
+        notify-send --urgency=critical "Time is over!"
+        notify-play 
     fi
 }
 
