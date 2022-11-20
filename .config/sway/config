@@ -246,6 +246,17 @@ bindsym --to-code $mod+x mode $exit
     #bindsym $mod+F9 exec pactl set-source-volume $(pactl get-default-source) +5%
 
 #
+# Bookmarking
+#
+
+# Pick bookmark
+bindsym $mod+i exec exec $HOME/scripts/bookmark.sh pick
+# Add bookmark
+bindsym $mod+Shift+i exec $HOME/scripts/bookmark.sh add
+# Remove bookmark
+bindsym $mod+Control+Shift+i exec $HOME/scripts/bookmark.sh remove
+
+#
 # Aesthetics
 #
 gaps inner 10
@@ -276,5 +287,8 @@ exec polkit-dumb-agent
 
 # Wallpaper
 exec swaybg -i ~/.config/sway/bg.jpg -m fill
+
+# Dunst the notification daemon
+exec dunst
 
 include /etc/sway/config.d/*
