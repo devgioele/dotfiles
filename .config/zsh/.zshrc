@@ -5,12 +5,6 @@
 #
 
 #
-# Env vars
-#
-export EDITOR=helix
-export BROWSER=brave
-
-#
 # History settings
 #
 
@@ -49,6 +43,8 @@ alias mail="neomutt"
 alias scanqr="~/scripts/qr-from-screen.sh"
 alias gemini="amfora"
 alias notify-play="mpv --no-terminal /usr/share/sounds/notification.mp3"
+alias rss="newsboat"
+alias yt-channel-id="pipe-viewer --no-interactive --extract '*CHANNELID*'"
 
 #
 # Directory aliases

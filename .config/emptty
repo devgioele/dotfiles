@@ -5,6 +5,7 @@
 #
 
 Environment=wayland
+LoginShell=/bin/zsh --login
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
