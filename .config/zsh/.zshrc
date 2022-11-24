@@ -54,6 +54,7 @@ alias gemini="amfora"
 alias notify-play="mpv --no-terminal /usr/share/sounds/notification.mp3"
 alias rss="newsboat"
 alias yt-channel-id="pipe-viewer --no-interactive --extract '*CHANNELID*'"
+alias metadata="exiv2"
 
 #
 # Directory aliases
@@ -85,6 +86,10 @@ function stopwatch {
     # '2>&1' is to redirect the stderr of 'time' to stdout
     TIME=$(2>&1 time sh -c "read REPLY")
     echo "$TIME seconds have elapsed." | sed "s/\(.*cpu \| total\)//g"
+}
+
+function qrshow {
+    qrencode -o - "$1" | feh -
 }
 
 
