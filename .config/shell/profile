@@ -1,18 +1,20 @@
 #!/bin/zsh
 
 #
-# Profile file. Runs on login. Env vars are set here.
+# Profile file
+#
+# Runs on login. Env vars not related to interactivity are set here.
 #
 
 # Adds `~/.local/bin` to $PATH
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 
-# Default programs:
+# Default programs
 export EDITOR="helix"
 export TERMINAL="alacritty"
 export BROWSER="brave"
 
-# ~/ Clean-up:
+# To clean up the home directory
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
