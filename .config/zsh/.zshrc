@@ -18,7 +18,9 @@ export GPG_TTY="$(tty)"
 # History in cache directory:
 HISTSIZE=10000000
 SAVEHIST=10000000
-HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+cachedir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+mkdir -p "$cachedir"
+HISTFILE="${cachedir}/history"
 
 # Extended globs
 setopt extended_glob
