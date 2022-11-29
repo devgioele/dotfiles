@@ -7,10 +7,5 @@
 Environment=wayland
 LoginShell=/bin/zsh --login
 
-export XDG_CONFIG_HOME="$HOME/.config"
-
-# Let qt5ct configure Qt5 applications
-export QT_QPA_PLATFORMTHEME=qt5ct
-
 # Start sway, the Wayland compositor and window manager
 exec sway
