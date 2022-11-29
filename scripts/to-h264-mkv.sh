@@ -30,7 +30,7 @@ do
     continue
   fi
   outputPath="${inputPath%.*}.tmp.mkv"
-  result="$(ffprobe -v 0 -show_streams -select_streams v "$inputPath" | grep codec_name -m 1)"
+  result="$(ffprobe -v 0 -show_streams -select_streams V "$inputPath" | grep codec_name -m 1)"
   codec="${result#codec_name=}"
   # Convert based on container and codec
   if [ "$codec" = "h264" ]
