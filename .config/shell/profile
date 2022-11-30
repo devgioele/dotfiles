@@ -12,7 +12,7 @@ export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 # Default programs
 export EDITOR="helix"
 export TERMINAL="alacritty"
-export BROWSER="brave"
+export BROWSER="librewolf"
 
 # To clean up the home directory
 export XDG_CONFIG_HOME="$HOME/.config"
