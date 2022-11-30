@@ -80,9 +80,9 @@
     },
     "temperature": {
         "rotate": 90,
-        "thermal-zone": 2,
+        "thermal-zone": 0,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
+        "critical-threshold": 70,
         "format-critical": "{icon}  {temperatureC}° C",
         "format": "{icon}  {temperatureC} °C",
         // Icon according to current temperature from low to high
