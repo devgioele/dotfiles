@@ -76,7 +76,14 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
     middle_emulation enabled
 }
 
+###################
 ### Key bindings
+###################
+#
+# A list of XF86 keyboard symbols is in the Xorg source code:
+# http://cgit.freedesktop.org/xorg/proto/x11proto/tree/XF86keysym.h
+#
+
 #
 # Basics:
 #
@@ -263,7 +270,6 @@ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 ## Increase brightness
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-
 
 #
 # Bookmarking
