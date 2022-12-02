@@ -68,7 +68,14 @@ input type:keyboard {
 	xkb_layout "eu"
 }
 
+###################
 ### Key bindings
+###################
+#
+# A list of XF86 keyboard symbols is in the Xorg source code:
+# http://cgit.freedesktop.org/xorg/proto/x11proto/tree/XF86keysym.h
+#
+
 #
 # Basics:
 #
@@ -232,6 +239,7 @@ bindsym --to-code $mod+x mode $exit
 #
 # Controlling audio
 #
+
     # Decrease volume of default sink
     bindsym $mod+F4 exec pactl set-sink-volume $(pactl get-default-sink) -5%
     # Toggle mute status of default sink
