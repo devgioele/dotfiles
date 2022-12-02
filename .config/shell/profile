@@ -20,6 +20,9 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
+# Let qt5ct configure Qt5 applications
+export QT_QPA_PLATFORMTHEME=qt5ct
+
 # If there is no graphical session yet and the login happened on the first tty, start wayland
 if [ -z $WAYLAND_DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]
 then
