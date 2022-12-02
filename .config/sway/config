@@ -27,11 +27,10 @@ set $menu tofi-drun --drun-launch=true
 #
 # See `man sway-output` for details
 #
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+
+output HDMI-A-1 res 1920x1080 pos 0 0
+output eDP-1 res 1920x1080 pos 0 1080
 
 ### Idle configuration
 # This will lock your screen after Y seconds of inactivity, then turn off
@@ -47,6 +46,7 @@ exec swayidle -w \
 # Do not lock the screen if a window is fullscreen
 for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen
+
 
 ### Input configuration
 #
@@ -216,7 +216,7 @@ bindsym $mod+r mode "resize"
 #
 # Exit mode
 #
-set $exit "prlh"
+set $exit "prlhs"
 mode $exit {
     # loginctl allows graphical sessions to run power-related commands without being root
     bindsym --to-code {
@@ -224,6 +224,7 @@ mode $exit {
         r exec loginctl reboot
         l exec swaymsg exit
         h exec loginctl hibernate
+        s exec loginctl suspend
         
         # Return to default mode
         $mod+x mode "default"
@@ -234,29 +235,46 @@ bindsym --to-code $mod+x mode $exit
 #
 # Controlling audio
 #
-    # Decrease volume of default sink
-    bindsym $mod+F4 exec pactl set-sink-volume $(pactl get-default-sink) -5%
-    # Toggle mute status of default sink
-    bindsym $mod+F5 exec pactl set-sink-mute $(pactl get-default-sink) toggle
-    # Increase volume of default sink
-    bindsym $mod+F6 exec pactl set-sink-volume $(pactl get-default-sink) +5%
-    # Decrease volume of default source
-    #bindsym $mod+F7 exec pactl set-source-volume $(pactl get-default-source) -5%
-    # Toggle mute status of default source
-    #bindsym $mod+F8 exec pactl set-source-mute $(pactl get-default-source) toggle
-    # Increase volume of default source
-    #bindsym $mod+F9 exec pactl set-source-volume $(pactl get-default-source) +5%
+
+## Decrease volume of default sink
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+## Toggle mute status of default sink
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+## Increase volume of default sink
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# Decrease volume of default source
+#bindsym $mod+F7 exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
+# Toggle mute status of default source
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+# Increase volume of default source
+#bindsym $mod+F9 exec pactl set-source-volume @DEFAULT_SOURCE@ +5%
+
+#
+# Controlling screen brightness
+#
+
+## Decrease brightness
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+## Increase brightness
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+
 
 #
 # Bookmarking
 #
 
 # Pick bookmark
-bindsym $mod+i exec exec $HOME/scripts/bookmark.sh pick
+bindsym $mod+i exec $HOME/scripts/bookmark.sh pick
 # Add bookmark
 bindsym $mod+Shift+i exec $HOME/scripts/bookmark.sh add
 # Remove bookmark
 bindsym $mod+Control+Shift+i exec $HOME/scripts/bookmark.sh remove
+
+#
+# Disable built-in monitor
+#
+
+bindsym XF86Display output eDP-1 toggle
 
 #
 # Aesthetics
