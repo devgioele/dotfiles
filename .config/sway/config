@@ -72,6 +72,7 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
     scroll_factor 1.0
     dwt enabled
     accel_profile adaptive
+    pointer_accel 0.4
     middle_emulation enabled
 }
 
