@@ -50,15 +50,6 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 
 ### Input configuration
 #
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
@@ -68,6 +59,20 @@ input type:keyboard {
 	xkb_layout "eu"
     # Make caps lock an additional backspace
     xkb_options caps:backspace
+}
+
+# All touchpads
+input type:touchpad {
+    natural_scroll enabled
+    tap enabled    
+}
+
+# Original built-in touchpad
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    scroll_factor 1.0
+    dwt enabled
+    accel_profile adaptive
+    middle_emulation enabled
 }
 
 ### Key bindings
