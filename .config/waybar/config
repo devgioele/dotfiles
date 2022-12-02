@@ -5,7 +5,7 @@
     // Order of modules in each section: left, center, right
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
-    "modules-right": ["tray", "idle_inhibitor", "mpd", "pulseaudio", "network#wlan", "cpu", "memory", "temperature", "sway/language", "clock"],
+    "modules-right": ["tray", "idle_inhibitor", "mpd", "pulseaudio", "network#wlan", "cpu", "memory", "temperature", "battery", "sway/language", "clock"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -59,6 +59,20 @@
     "tray": {
         "icon-size": 21,
         "spacing": 10
+    },
+    "battery": {
+        "rotate": 90,
+        "format": "{icon} {capacity}",
+        "format-plugged": " {icon} {capacity}",
+        "format-icons": ["", "", "", "", "", "", "", "", "", ""],
+        "tooltip": true,
+        "tooltip-format": "{timeTo}",
+        "format-time": "{H} h {M} min",
+        "states": {
+            "warning": 30,
+            "critical": 10
+        },
+        "interval": 30
     },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",

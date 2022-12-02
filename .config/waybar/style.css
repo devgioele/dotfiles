@@ -60,7 +60,6 @@
   #mpd,
   #tray,
   #mode,
-  #clock,
   #memory,
   #network.wlan,
   #network.eth,
@@ -78,6 +77,16 @@
   /* The right-most module */
   #clock {
     padding: 0.5rem 0 0 0;
+  }
+  
+  #battery {
+    color: #09c800;
+  }
+  #battery.warning {
+    color: #ff9706;
+  }
+  #battery.critical {
+    color: #ff1b00;
   }
 
   /* Center modules */
@@ -98,6 +107,9 @@
   }
   #pulseaudio {
     min-height: 60px;
+  }
+  #battery {
+    min-height: 70px;
   }
   
   #network.wlan.linked,
