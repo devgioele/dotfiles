@@ -5,7 +5,7 @@
     // Order of modules in each section: left, center, right
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
-    "modules-right": ["tray", "idle_inhibitor", "mpd", "pulseaudio", "network#wlan", "cpu", "memory", "temperature", "battery", "sway/language", "clock"],
+    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "network#wlan", "cpu", "memory", "temperature", "battery", "sway/language", "clock"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -22,32 +22,6 @@
     "sway/language": {
         "tooltip": false,
         "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
-    },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "ﱙ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
     },
     "idle_inhibitor": {
         "format": "{icon}",
