@@ -318,7 +318,8 @@ bar {
 exec polkit-dumb-agent
 
 # Wallpaper
-exec swaybg -i ~/.config/sway/bg.jpg -m fill
+exec swaybg -c '#000000'
+#exec swaybg -i ~/.config/sway/bg.jpg -m fill
 
 # Dunst the notification daemon
 exec dunst
