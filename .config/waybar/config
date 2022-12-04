@@ -71,7 +71,7 @@
         "format-time": "{H} h {M} min",
         "states": {
             "warning": 30,
-            "critical": 10
+            "critical": 15
         },
         "interval": 30
     },
