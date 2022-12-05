@@ -23,14 +23,13 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 # Let qt5ct configure Qt5 applications
 export QT_QPA_PLATFORMTHEME=qt5ct
 
+# Kill ssh-agent if running
+pkill -u "$USER" ssh-agent
 # Start ssh-agent
-if ! pgrep -u "$USER" ssh-agent > /dev/null
-then
-    ssh-agent -t 900 > "$XDG_CACHE_HOME/ssh-agent.env"
-fi
+ssh-agent -t 900 > "$XDG_RUNTIME_DIR/ssh-agent.env"
 if [ ! -f "$SSH_AUTH_SOCK" ]
 then
-    source "$XDG_CACHE_HOME/ssh-agent.env" > /dev/null
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" > /dev/null
 fi
 
 # If there is no graphical session yet and the login happened on the first tty, start wayland
