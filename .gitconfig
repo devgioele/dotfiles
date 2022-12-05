@@ -1,8 +1,13 @@
 [user]
 	email = gioele@devgioele.xyz
 	name = devgioele
+[credential]
+	helper = /usr/bin/pass-git-helper
+	useHttpPath = true
 [init]
 	defaultBranch = main
+[core]
+	editor = helix
 [pull]
 	rebase = true
 [credential]
