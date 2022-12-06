@@ -1,0 +1,13 @@
+# Consult the manpage to avoid
+# that the new keybindings conflict
+# with the default ones
+prev_img Left
+next_img Right
+toggle_pause p
+toggle_keep_vp C-k
+scroll_left h
+scroll_down j
+scroll_up k
+scroll_right l
+zoom_out J
+zoom_in K
