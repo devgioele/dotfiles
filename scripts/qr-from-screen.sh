@@ -10,4 +10,4 @@ FILENAME="grim-tmp.png"
 grim "$FILENAME"
 URI=$(zbarimg -q --raw "$FILENAME")
 rm "$FILENAME"
-echo -n "$URI"
+printf "$URI"
