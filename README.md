@@ -12,7 +12,7 @@ The name of the branch is the hostname of that particular machine.
 
 # Setup
 
-What comes next is a list of the software I most commonly use on my machines.
+What comes next is a list of the basic software found on my machines.
 
 The selection criteria is inspired by [the suckless philosophy](https://suckless.org/philosophy/):
 - FOSS (obviously)
