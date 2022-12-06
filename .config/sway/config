@@ -276,11 +276,11 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 #
 
 # Pick bookmark
-bindsym $mod+i exec $HOME/scripts/bookmark.sh pick
+bindsym $mod+i exec $HOME/.local/bin/bookmark pick
 # Add bookmark
-bindsym $mod+Shift+i exec $HOME/scripts/bookmark.sh add
+bindsym $mod+Shift+i exec $HOME/.local/bin/bookmark add
 # Remove bookmark
-bindsym $mod+Control+Shift+i exec $HOME/scripts/bookmark.sh remove
+bindsym $mod+Control+Shift+i exec $HOME/.local/bin/bookmark remove
 
 #
 # Disable built-in monitor
