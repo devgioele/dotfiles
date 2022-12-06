@@ -1,0 +1,19 @@
+#/bin/sh
+
+#
+# Script to rename the given files using the given regex,
+# but without group matching (i.e. you cannot use groups matching the file name
+# to determine the resulting file name.)
+#
+# Synopsis: rename-regex <pattern> <new_value> file...
+#
+
+pattern="$1"
+newValue="$2"
+shift 2
+
+for filePath in "$@"
+do
+  newFilePath="$(printf "$filePath" | sed "s/$pattern/$newValue/")"
+  mv "$filePath" "$newFilePath"
+done
