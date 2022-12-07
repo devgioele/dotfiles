@@ -28,7 +28,7 @@ alias bookmark_to_pick="cat $file | menu 'Pick: '"
 alias bookmark_to_remove="cat $file | menu 'Remove: '"
 
 ask_tag() {
-  new_tag="$(printf "$existing_tags" | menu-input "Tag $n: ")"
+  new_tag="$(printf "$existing_tags" | menu-input "Tag $n: " | tr ' ' '-')"
   if [ -n "$new_tag" ]
   then
     new_tags="$(printf "$tags\n#$new_tag")"
