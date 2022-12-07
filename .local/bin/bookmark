@@ -28,12 +28,17 @@ alias bookmark_to_pick="cat $file | menu 'Pick: '"
 alias bookmark_to_remove="cat $file | menu 'Remove: '"
 
 ask_tag() {
-  new_tag="$(echo "$existing_tags" | tr ' ' '\n' | menu-input "Tag $n: ")"
+  new_tag="$(printf "$existing_tags" | menu-input "Tag $n: ")"
   if [ -n "$new_tag" ]
   then
-    existing_tags="$(echo "$existing_tags\n$new_tag" | sort -u)"
-    tags="$tags #$new_tag"
-    n="$((n=n+1))"
+    new_tags="$(printf "$tags\n#$new_tag")"
+    # If the added tag is new
+    if [ -z "$(printf "$new_tags" | sort | uniq -D)" ]
+    then
+      existing_tags="$(printf "$existing_tags$new_tag" | sort -u)\n"
+      tags="$(printf "$new_tags" | sort -u)"
+      n="$((n+1))"
+    fi
     ask_tag
   fi
 }
@@ -48,7 +53,7 @@ fi
 if [ "$1" = "add" ]
 then
   # Add the current selection to the file
-  bookmark="$(wl-paste --primary)"
+  bookmark="$(wl-paste --primary 2> /dev/null)"
   if [ -n "$bookmark" ]
   then
     # Verify existence of bookmark, ignoring any tags
@@ -57,14 +62,16 @@ then
       notify-send "Already bookmarked!"
     else
       # Prompt for tags, listing existing tags
-      existing_tags="$(cat "$file" | grep -Po "(?<=#)[^ ]+" | sort -u)"
+      existing_tags="$(cat "$file" | grep -Po "(?<= #)[^ ]+" | sort -u)"
       tags=''
       n=1
       ask_tag
-      bookmark_with_tags="$bookmark$tags"
+      bookmark_with_tags="$bookmark$(printf "$tags" | tr '\n' ' ')"
       echo "$bookmark_with_tags" >> "$file"
       notify-send "Bookmark added!" "$bookmark"
     fi
+  else
+    notify-send "Clipboard is empty!" "Nothing to bookmark"
   fi
 elif [ "$1" = "remove" ]
 then
