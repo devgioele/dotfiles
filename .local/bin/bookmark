@@ -61,6 +61,12 @@ then
   bookmark="$(wl-paste --primary 2> /dev/null)"
   if [ -n "$bookmark" ]
   then
+    # Verify correctness of bookmark
+    if printf "$bookmark" | grep " "
+    then
+      notify-send "Cannot copy invalid bookmark!" "Spaces are not allowed."
+      exit 1
+    fi
     # Verify existence of bookmark, ignoring any tags
     if grep -q "^$bookmark" "$file"
     then
@@ -90,7 +96,7 @@ then
   bookmark_with_tags="$(bookmark_to_remove)"
   if [ -n "$bookmark_with_tags" ]
   then
-    if sed -i "\|^$bookmark_with_tags$|d" .local/share/bookmarks
+    if sed -i "\|^$bookmark_with_tags$|d" "$file"
     then
       notify-send "Bookmark removed!" "$bookmark_with_tags"
     else
