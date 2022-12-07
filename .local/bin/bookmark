@@ -62,7 +62,13 @@ then
       notify-send "Already bookmarked!"
     else
       # Prompt for tags, listing existing tags
-      existing_tags="$(cat "$file" | grep -Po "(?<= #)[^ ]+" | sort -u)\n"
+      existing_tags="$(cat "$file" | grep -Po "(?<= #)[^ ]+" | sort -u)"
+      # `sort` does not append a newline to the last line when printing to stdout.
+      # Append the newline if the string is not empty.
+      if [ -n "$existing_tags" ]
+      then
+        existing_tags="$existing_tags\n"
+      fi
       tags=''
       n=1
       ask_tag
