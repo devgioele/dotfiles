@@ -27,6 +27,8 @@ alias help="echo \"Choose 'add', 'remove' or 'pick'.\""
 alias bookmark_to_pick="cat $file | menu 'Pick: '"
 alias bookmark_to_remove="cat $file | menu 'Remove: '"
 
+# Asks the user for tags recursively,
+# listing what tags exist so far.
 ask_tag() {
   new_tag="$(printf "$existing_tags" | menu-input "Tag $n: " | tr ' ' '-')"
   if [ -n "$new_tag" ]
