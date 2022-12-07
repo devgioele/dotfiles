@@ -20,8 +20,11 @@ alias menu="tofi --width 90% --height 90% --font-size 16 --prompt-text"
 # and to be used as input field.
 # Despite no match, the input is printed to stdout.
 alias menu-input="tofi --require-match false --font-size 16 --padding-top 25 --padding-bottom 25 --padding-left 35 --padding-right 25 --prompt-text"
-file="${XDG_DATA_HOME:-$HOME/.local/share}/bookmarks"
+file="${XDG_DATA_HOME:-$HOME/.local/share}/bookmarking/bookmarks"
 ##########
+
+# Create necessary dirs
+mkdir -p "$(dirname $file)"
 
 alias help="echo \"Choose 'add', 'remove' or 'pick'.\""
 alias bookmark_to_pick="cat $file | menu 'Pick: '"
