@@ -43,6 +43,8 @@ PROMPT='%F{069}%n%f%F{11}@%f%F{069}%M%f%F{11}:%f%F{7}%~%f%F{11}>%f '
 alias ls="ls -la --color=auto"
 alias du="du -ahc --max-depth 1"
 alias dus="du | sort -h"
+alias diff="diff --color"
+alias gemini="amfora"
 alias cp="cp -i"
 alias df="df -h"
 alias free="free -m"
@@ -54,6 +56,8 @@ alias scanqr="~/scripts/qr-from-screen.sh"
 alias gemini="amfora"
 alias notify-play="mpv --no-terminal /usr/share/sounds/notification.mp3"
 alias rss="newsboat"
+# Pass the URL to a VIDEO to get the ID of the channel that uploaded that video.
+# Do not pass the URL of the channel itself.
 alias yt-channel-id="pipe-viewer --no-interactive --extract '*CHANNELID*'"
 alias metadata="exiv2"
 
