@@ -3,7 +3,6 @@
 #
 # Script run after emptty login
 #
-
 Environment=wayland
 LoginShell=/bin/zsh --login
 
