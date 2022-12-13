@@ -28,8 +28,8 @@ export CARGO_HOME="$XDG_DATA_HOME/.cargo"
 
 # Add `~/.local/bin` to $PATH
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
-# Add `$CARGO_HOME/.bin` to $PATH
-export PATH="$PATH:$CARGO_HOME/.bin"
+# Add `$CARGO_HOME/bin` to $PATH
+export PATH="$PATH:$CARGO_HOME/bin"
 
 # Kill ssh-agent if running
 pkill -u "$USER" ssh-agent
