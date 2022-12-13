@@ -5,7 +5,7 @@
     // Order of modules in each section: left, center, right
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
-    "modules-right": ["tray", "idle_inhibitor", "mpd", "pulseaudio", "network#wlan", "cpu", "memory", "temperature", "sway/language", "clock"],
+    "modules-right": ["idle_inhibitor", "wireplumber", "network#wlan", "cpu", "memory", "temperature", "sway/language", "clock"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -23,42 +23,12 @@
         "tooltip": false,
         "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "ﱙ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
             "activated": "",
             "deactivated": ""
         }
-    },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
     },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
@@ -110,25 +80,11 @@
         "format-disconnected": "",
         "interval": 1
     },
-    "pulseaudio": {
+    "wireplumber": {
         "rotate": 90,
-        "scroll-step": 0,
-        "format": "{volume}  {icon}",
-        "format-bluetooth": "{volume}  {icon}",
-        "format-bluetooth-muted": "{icon}",
+        "format": "{volume}  ",
         "format-muted": "{volume}   ",
-        "format-source": "{volume}  ",
-        "format-source-muted": "{volume}  ",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "alacritty -e pulsemixer"
-    }
+        "on-click": "helvum",
+    },
 }
 
