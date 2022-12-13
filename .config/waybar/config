@@ -5,7 +5,7 @@
     // Order of modules in each section: left, center, right
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
-    "modules-right": ["idle_inhibitor", "wireplumber", "network#wlan", "cpu", "memory", "temperature", "battery", sway/language", "clock"],
+    "modules-right": ["idle_inhibitor", "wireplumber", "network#wlan", "cpu", "memory", "temperature", "battery", "sway/language", "clock"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
