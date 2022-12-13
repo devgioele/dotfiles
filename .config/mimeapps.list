@@ -2,7 +2,7 @@
 
 [Default Applications]
 application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
-audio/*=mpv-terminal.desktop;
+application/x-mozilla-bookmarks=librewolf.desktop;
 image/*=feh.desktop;
 text/*=helix.desktop;
 text/html=librewolf.desktop;
