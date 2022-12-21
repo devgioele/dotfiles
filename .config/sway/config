@@ -61,7 +61,7 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 input type:keyboard {
 	repeat_delay 250
 	repeat_rate 25
-	xkb_layout "eu"
+	xkb_layout "eu,el"
 }
 
 ###################
@@ -237,11 +237,17 @@ bindsym --to-code $mod+x mode $exit
 #
 
     # Decrease volume of default sink
-    bindsym $mod+F4 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+    bindsym $mod+F4 exec wpctl set-volume @DEFAULT_SINK@ 5%-
     # Toggle mute status of default sink
-    bindsym $mod+F5 exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+    bindsym $mod+F5 exec wpctl set-mute @DEFAULT_SINK@ toggle
     # Increase volume of default sink
-    bindsym $mod+F6 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+    bindsym $mod+F6 exec wpctl set-volume @DEFAULT_SINK@ 5%+
+    # Decrease volume of default source
+    bindsym $mod+F7 exec wpctl set-volume @DEFAULT_SOURCE@ 5%-
+    # Toggle mute status of default source
+    bindsym $mod+F8 exec wpctl set-mute @DEFAULT_SOURCE@ toggle
+    # Increase volume of default source
+    bindsym $mod+F9 exec wpctl set-volume @DEFAULT_SOURCE@ 5%+
 
 #
 # Bookmarking
@@ -257,31 +263,37 @@ bindsym $mod+Control+Shift+i exec bookmark remove
 #
 # Aesthetics
 #
-gaps inner 10
-default_border pixel 2
+gaps inner 5
+default_border pixel 3
 default_floating_border pixel 2
 # hide_edge_borders both
-client.focused #686fd1 #686fd1 #000000 #686fd1
-client.focused_inactive #222222 #8768d1 #ffffff #8768d1
-client.focused_tab_title #222222 #8768d1 #ffffff
-client.unfocused #686fd1 #222222 #ffffff
-client.urgent #2f343a #900000 #ffffff
+client.focused #f4ac45 #f4ac45 #000000 #f4ac45
+client.focused_inactive #222222 #694a38 #ffffff #694a38
+client.focused_tab_title #222222 #694a38 #ffffff
+client.unfocused #f4ac45 #222222 #ffffff
+client.urgent #a61c3c #900000 #ffffff
 client.placeholder #000000 #0c0c0c #ffffff
 
 #
 # Status Bar:
 #
+# Bar is started manually below
+#
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    swaybar_command waybar
-}
+#bar {
+#    swaybar_command eww open bar_0
+#}
 
 #
 # Autostart anything related to the graphical session
 #
 
+# Bar
+exec_always eww open bar_0 && eww reload bar_0
+
 # Wallpaper
-exec swaybg -i ~/.config/sway/bg.jpg -m fill
+#exec swaybg -i ~/.config/sway/bg.jpg -m fill
+exec swaybg -c '#000000'
 
 # Graphic authenticaiton agent for polkit
 exec polkit-dumb-agent
@@ -289,9 +301,12 @@ exec polkit-dumb-agent
 # Notification daemon
 exec dunst
 
+# Other programs that are not terminated when sway terminates
+exec ~/.config/sway/init.sh >> ~/tmp/init.log
+
 # Audio and video server
-exec pipewire
-exec pipewire-pulse
-exec wireplumber
+#exec pipewire
+#exec pipewire-pulse
+#exec wireplumber
 
 include /etc/sway/config.d/*

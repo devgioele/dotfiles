@@ -4,24 +4,25 @@
     width = 370
     height = 350
     offset = 0x19
-    padding = 2
-    horizontal_padding = 4
+    padding = 4
     transparency = 25
-    font = Monospace 12
+    font = Hack Nerd Font Mono 12
     format = "<b>%s</b>\n%b"
 
 [urgency_low]
-    background = "#1d2021"
-    foreground = "#928374"
+    background = "#92bfb1"
+    foreground = "#000000"
+    frame_color = "#f4ac45"
     timeout = 3
 
 [urgency_normal]
-    background = "#458588"
-    foreground = "#ebdbb2"
+    background = "#694a38"
+    foreground = "#dad6d6"
+    frame_color = "#f4ac45"
     timeout = 5
 
 [urgency_critical]
-    background = "#ff832c"
-    foreground = "#242424"
-    frame_color = "#ffb900"
+    background = "#a61c3c"
+    foreground = "#000000"
+    frame_color = "#f4ac45"
     timeout = 0

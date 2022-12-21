@@ -1,0 +1,230 @@
+; Documentation: https://elkowar.github.io/eww/configuration.html
+; Guide: https://dharmx.is-a.dev/eww-powermenu/
+
+; Variables
+
+; Polls
+(defpoll sec  :interval "1s" "date +%S")
+(defpoll min  :interval "1s" "date +%M")
+(defpoll hour :interval "1s" "date +%H")
+(defpoll day      :interval "10m" "date +%d")
+(defpoll month    :interval "1h"  "date +%m")
+(defpoll year     :interval "1h"  "date +%y")
+;(defpoll cpu_temp :interval "2s" "sensors -j | jq '.[] | select(.Adapter == \"ISA adapter\").\"Package id 0\".temp1_input'")
+;(defpoll gpu_temp :interval "2s" "sensors -j | jq '.[] | select(.Adapter == \"PCI adapter\").temp1.temp1_input'")
+; TODO: Find a way to read gpu usage with the nouveau driver
+;(defpoll gpu_usage :interval "2s" "")
+(defpoll network_wlan0_state :interval "1s" "ip -j link | jq -r '.[] | select(.ifname == \"wlan0\") | .operstate'")
+(defpoll network_eth0_state :interval "1s" "ip -j link | jq -r '.[] | select(.ifname == \"eth0\") | .operstate'")
+; TODO: Make this poll to a listener once wireplumber supports a subscription mechanism
+(defpoll volume :interval "1s" "scripts/volume.sh")
+
+; Listeners
+(deflisten network_speed "scripts/network.sh")
+(deflisten swaymode "swaymsg -m -t subscribe '[\"mode\"]' | jq -r --unbuffered '.change' | sed --unbuffered 's/default//'")
+(deflisten kbd_lyt_current "scripts/keyboard_layout.sh")
+(deflisten workspaces_current :initial "[]" "scripts/workspaces.sh")
+
+
+; For the window manager to reserve space,
+; exlusive must be true and the anchor must be centered.
+(defwindow bar_0
+  :monitor 0
+  :stacking "fg"
+  :exclusive true
+  :geometry (geometry :x 0
+                      :y 0
+					  :width "1%"
+					  :height "100%"
+                      :anchor "left center")
+  (bar :monitor 0))
+
+(defwidget bar [monitor]
+  (box :orientation "v"
+       :space-evenly false
+	   :spacing 10
+	   :vexpand true
+	   :hexpand true
+      (top :monitor monitor)
+      (bottom)))
+
+(defwidget top [monitor]
+  (box :orientation "v"
+       :space-evenly false
+	   :spacing 30
+    (workspaces :monitor monitor)
+  	(label :class "swaymode"
+           :angle 90
+		   :text swaymode)))
+
+(defwidget workspaces [monitor]
+  (box
+    :orientation "v"
+    :space-evenly false
+    :class "workspaces"
+    :halign "fill"
+    :spacing 10
+    (for entry in {
+        [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+      }
+      (workspace_indicator
+        :num { entry }
+        :monitor monitor))))
+
+(defwidget workspace_indicator [num monitor]
+  (box :orientation "v"
+       :space-evenly false
+	   :class {
+           workspaces_current["${num - 1}"]?.output == monitor ?
+		   "indicators" :
+		   "hidden"
+		}
+    (button
+        :class {
+        	workspaces_current["${num - 1}"]?.output == monitor ?
+			workspaces_current["${num - 1}"].class :
+			"hidden"
+		}
+      :onclick "swaymsg workspace ${num}" {num})))
+
+(defwidget bottom [] 
+  (box :orientation "v"
+	   :halign "center"
+	   :valign "end"
+	   :vexpand true
+	   :space-evenly false
+	   :spacing 15
+	(volume_source) (volume_sink) (network_short) (gpu) (cpu) (ram) (disk) (kbd_lyt) (date) (clock)))
+
+(defwidget volume_sink []
+  (box :class "volume_sink"
+       :height 35
+       :orientation "v"
+       :space-evenly false
+	   :spacing 5
+	(label :angle 90
+	       :text {volume.sink.muted ? "婢" : "墳 ${volume.sink.volume}"})))
+
+(defwidget volume_source []
+  (box :class "volume_source"
+	   :height 35
+       :orientation "v"
+       :space-evenly false
+	   :spacing 5
+	(label :angle 90
+	       :text {volume.source.muted == "true" ? "" : " ${volume.source.volume}"})))
+
+(defwidget network_short []
+	(label :text {network_wlan0_state == "UP" ? "" :
+	              network_eth0_state == "UP" ? "" : ""}))
+
+(defwidget network_long []
+  (label :angle 90
+         :text {network_wlan0_state == "UP" ? " 祝 ${network_speed.wlan0.upload}     ${network_speed.wlan0.download}":
+    network_eth0_state == "UP" ? " 祝 ${round(EWW_NET.eth0.NET_UP/1000,0)}     ${round(EWW_NET.eth0.NET_DOWN/1000,0)} kB" : ""}))
+
+(defwidget gpu []
+  (box :orientation "v"
+       :halign "center"
+	   :space-evenly false
+	   :spacing 8
+    "" (box :orientation "v"
+	         :halign "center"
+			 :class "subcontent"
+			 :space-evenly false
+			 :spacing 6
+	     ;(box :orientation "v"
+		      ;:halign "center"
+		   ;{gpu_usage == 100 ? "++" : gpu_usage})
+	     (box :orientation "v"
+		      :halign "fill"
+			  :class {EWW_TEMPS.NOUVEAU_TEMP1 < 40 ? "gpu_temp_cold" :
+			 EWW_TEMPS.NOUVEAU_TEMP1 > 60 ? "gpu_temp_hot" : "gpu_temp_normal" }
+		   "" {EWW_TEMPS.NOUVEAU_TEMP1}))))
+
+(defwidget cpu []
+  (box :orientation "v"
+       :halign "center"
+	   :space-evenly false
+	   :spacing 8
+    "" (box :orientation "v"
+	         :halign "center"
+			 :class "subcontent"
+			 :space-evenly false
+			 :spacing 6
+	     (box :orientation "v"
+		      :halign "center"
+		   {"${round(EWW_CPU.avg, 0)}" == "100" ? "++" :
+		     "${round(EWW_CPU.avg, 0)}"})
+	     (box :orientation "v"
+		      :halign "fill"
+			  :class {EWW_TEMPS.CORETEMP_PACKAGE_ID_0 < 40 ? "cpu_temp_cold" :
+			 EWW_TEMPS.CORETEMP_PACKAGE_ID_0 > 60 ? "cpu_temp_hot" : "cpu_temp_normal" }
+		   "" {EWW_TEMPS.CORETEMP_PACKAGE_ID_0}))))
+
+
+(defwidget disk []
+  (box :orientation "v"
+       :halign "center"
+	   :hexpand true
+	   :tooltip EWW_DISK
+	   :space-evenly false
+	   :spacing 6
+    "" "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}"))
+
+(defwidget ram []
+  (box :orientation "v"
+       :halign "center"
+	   :hexpand true 
+    "" "${round(EWW_RAM.used_mem_perc, 0)}"))
+
+(defwidget kbd_lyt []
+  (box :orientation "v"
+       :halign "center"
+	   :hexpand true 
+	   :space-evenly false
+    "" (label 
+	      :angle 90
+		  :text kbd_lyt_current)))
+
+(defwidget date []
+  (button
+    ; Toggle calendar window
+	:onclick "if eww windows | grep -q '*calendar_window'; then eww close calendar_window; else eww open calendar_window; fi"
+	  (box :class "date"
+		   :orientation "v"
+	       :halign "center"
+		   :spacing 4
+		   :space-evenly false
+		"" (box :orientation "v"
+		         :halign "center"
+				 :spacing 0
+				 :space-evenly false
+			  day month))))
+
+(defwindow calendar_window
+  :monitor 0
+  :geometry (geometry :x 10
+                      :y 0
+					  :width "15%"
+					  :height "20%"
+                      :anchor "left bottom")
+  (calendar :class "calendar" 
+    :day day 
+    :month month 
+    :year year
+	:show-details true
+	:show-heading true
+	:show-day-names true))
+
+(defwidget clock []
+    (box :class "clock"
+	     :orientation "v"
+		 :halign "center"
+	     :spacing 4
+	     :space-evenly false
+	  "" (box :orientation "v"
+	         :halign "center"
+			 :spacing 0
+			 :space-evenly false
+	        hour min sec)))
