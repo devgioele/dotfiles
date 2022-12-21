@@ -1,5 +1,8 @@
-[keys.normal]
-C-o = ":open ~/.config/helix/config.toml"
+theme = "onedarker"
+
+[editor]
+line-number = "relative"
+mouse = false
 
 [editor.search]
 smart-case = false
