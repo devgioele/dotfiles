@@ -1,0 +1,74 @@
+$light-gray: #dad6d6;
+$cambridge-blue: #92bfb1;
+$yellow-orange: #f4ac45;
+$coffee: #694a38;
+$vivid-burgundy: #a61c3c;
+
+* {
+  all: unset;
+}
+
+window {
+  background: darken($coffee, 20);
+  color: darken($light-gray, 15);
+  font-size: 14px;
+  font-family: Hack Nerd Font Mono;
+
+  &>* {
+    margin: 5px;
+  }
+}
+
+.cpu_temp_cold {
+  color: $cambridge-blue;
+}
+
+.cpu_temp_normal {
+  color: $light-gray;
+}
+
+.cpu_temp_hot {
+  color: $vivid-burgundy;
+}
+
+.gpu_temp_cold {
+  color: $cambridge-blue;
+}
+
+.gpu_temp_normal {
+  color: $light-gray;
+}
+
+.gpu_temp_hot {
+  color: $vivid-burgundy;
+}
+
+.subcontent {
+  background: darken($coffee, 15);
+  border-radius: 3px;
+  padding: 3;
+}
+
+.swaymode {
+  color: $yellow-orange;
+}
+
+.focused {
+  color: $yellow-orange;
+}
+
+.urgent {
+  color: $vivid-burgundy;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.calendar {
+  padding: 10px;
+}
+
+.clock {
+  color: $yellow-orange;
+}
