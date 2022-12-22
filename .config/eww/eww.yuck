@@ -45,7 +45,7 @@
   :exclusive true
   :geometry (geometry :x 0
                       :y 0
-					  :width "1%"
+					  :width "2%"
 					  :height "100%"
                       :anchor "left center")
   (bar :monitor 1))

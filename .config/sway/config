@@ -301,7 +301,7 @@ client.placeholder #000000 #0c0c0c #ffffff
 #
 # Read `man 5 sway-bar` for more information about this section.
 #bar {
-#    swaybar_command eww open bar_0
+#    swaybar_command <cmd>
 #}
 
 #
@@ -309,7 +309,7 @@ client.placeholder #000000 #0c0c0c #ffffff
 #
 
 # Bar
-exec_always eww open bar_0 && eww reload bar_0
+exec_always eww open bar_0 && eww open bar_1 && eww reload
 
 # Wallpaper
 #exec swaybg -i ~/.config/sway/bg.jpg -m fill
