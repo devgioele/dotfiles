@@ -34,7 +34,7 @@
   :exclusive true
   :geometry (geometry :x 0
                       :y 0
-					  :width "1%"
+					  :width "2%"
 					  :height "100%"
                       :anchor "left center")
   (bar :monitor 0))
@@ -112,7 +112,7 @@
        :space-evenly false
 	   :spacing 5
 	(label :angle 90
-	       :text {volume.source.muted == "true" ? "" : " ${volume.source.volume}"})))
+	       :text {volume.source.muted ? "" : " ${volume.source.volume}"})))
 
 (defwidget network_short []
 	(label :text {network_wlan0_state == "UP" ? "" :
@@ -125,42 +125,42 @@
 
 (defwidget gpu []
   (box :orientation "v"
-       :halign "center"
+       :halign "fill"
 	   :space-evenly false
 	   :spacing 8
     "" (box :orientation "v"
-	         :halign "center"
+	         :halign "fill"
 			 :class "subcontent"
 			 :space-evenly false
 			 :spacing 6
 	     ;(box :orientation "v"
-		      ;:halign "center"
+		      ;:halign "fill"
 		   ;{gpu_usage == 100 ? "++" : gpu_usage})
 	     (box :orientation "v"
 		      :halign "fill"
-			  :class {EWW_TEMPS.NOUVEAU_TEMP1 < 40 ? "gpu_temp_cold" :
-			 EWW_TEMPS.NOUVEAU_TEMP1 > 60 ? "gpu_temp_hot" : "gpu_temp_normal" }
-		   "" {EWW_TEMPS.NOUVEAU_TEMP1}))))
+			  :class {EWW_TEMPS.AMDGPU_EDGE < 40 ? "gpu_temp_cold" :
+			 EWW_TEMPS.AMDGPU_EDGE > 60 ? "gpu_temp_hot" : "gpu_temp_normal" }
+		   "" {EWW_TEMPS.AMDGPU_EDGE}))))
 
 (defwidget cpu []
   (box :orientation "v"
-       :halign "center"
+       :halign "fill"
 	   :space-evenly false
 	   :spacing 8
     "" (box :orientation "v"
-	         :halign "center"
+	         :halign "fill"
 			 :class "subcontent"
 			 :space-evenly false
 			 :spacing 6
 	     (box :orientation "v"
-		      :halign "center"
+		      :halign "fill"
 		   {"${round(EWW_CPU.avg, 0)}" == "100" ? "++" :
 		     "${round(EWW_CPU.avg, 0)}"})
 	     (box :orientation "v"
 		      :halign "fill"
-			  :class {EWW_TEMPS.CORETEMP_PACKAGE_ID_0 < 40 ? "cpu_temp_cold" :
-			 EWW_TEMPS.CORETEMP_PACKAGE_ID_0 > 60 ? "cpu_temp_hot" : "cpu_temp_normal" }
-		   "" {EWW_TEMPS.CORETEMP_PACKAGE_ID_0}))))
+			  :class {EWW_TEMPS.THINKPAD_CPU < 40 ? "cpu_temp_cold" :
+			 EWW_TEMPS.THINKPAD_CPU > 60 ? "cpu_temp_hot" : "cpu_temp_normal" }
+		   "" {EWW_TEMPS.THINKPAD_CPU}))))
 
 
 (defwidget disk []
