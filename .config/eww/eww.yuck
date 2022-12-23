@@ -105,7 +105,7 @@
 	   :vexpand true
 	   :space-evenly false
 	   :spacing 15
-	(volume_source) (volume_sink) (network_short) (gpu) (cpu) (ram) (disk) (kbd_lyt) (date) (clock)))
+	(volume_source) (volume_sink) (network_short) (gpu) (cpu) (ram) (disk) (kbd_lyt) (battery) (date) (clock)))
 
 (defwidget volume_sink []
   (box :class "volume_sink"
@@ -197,6 +197,17 @@
     "" (label 
 	      :angle 90
 		  :text kbd_lyt_current)))
+
+(defwidget battery []
+  (box :orientation "v"
+	   :class {EWW_BATTERY.BAT0.status == "Discharging" && EWW_BATTERY.BAT0.capacity <= 20 ? "bat_discharging_low" :
+               EWW_BATTERY.BAT0.status == "Discharging" ? "bat_discharging_high" :
+	           EWW_BATTERY.BAT0.status == "Not charging" ? "bat_not_charging" :
+	           "bat_charging"}
+    {EWW_BATTERY.BAT0.status == "Discharging" ? "" :
+	  EWW_BATTERY.BAT0.status == "Not charging" ? "ﮣ" :
+	  ""}
+	{EWW_BATTERY.BAT0.capacity}))
 
 (defwidget date []
   (button

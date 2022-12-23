@@ -3,6 +3,8 @@ $cambridge-blue: #92bfb1;
 $yellow-orange: #f4ac45;
 $coffee: #694a38;
 $vivid-burgundy: #a61c3c;
+$bad: $vivid-burgundy;
+$good: #50e174;
 
 * {
   all: unset;
@@ -70,5 +72,17 @@ window {
 }
 
 .clock {
+  color: $yellow-orange;
+}
+
+.bat_discharging_high {
+  color: $good;
+}
+
+.bat_discharging_low {
+  color: $bad;
+}
+
+.bat_charging {
   color: $yellow-orange;
 }
