@@ -251,8 +251,13 @@ bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%-
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
 # Increase volume of default sink
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+
+# Decrease volume of default source
+bindsym $mod+F7 exec wpctl set-volume @DEFAULT_SOURCE@ 5%-
 # Toggle mute status of default source
+bindsym $mod+F8 exec wpctl set-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
+# Increase volume of default source
+bindsym $mod+F9 exec wpctl set-volume @DEFAULT_SOURCE@ 5%+
 
 #
 # Controlling screen brightness
@@ -323,10 +328,5 @@ exec dunst
 
 # Other programs that are not terminated when sway terminates
 exec ~/.config/sway/init.sh >> ~/tmp/init.log
-
-# Audio and video server
-#exec pipewire
-#exec pipewire-pulse
-#exec wireplumber
 
 include /etc/sway/config.d/*
