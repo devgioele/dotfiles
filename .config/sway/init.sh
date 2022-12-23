@@ -22,7 +22,7 @@
 
 kill_start=""
 start=""
-start_kill="pipewire pipewire-pulse wireplumber"
+start_kill="pipewire pipewire-alsa pipewire-pulse wireplumber"
 
 #echo '-------'
 
