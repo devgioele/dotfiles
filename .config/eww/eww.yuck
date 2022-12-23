@@ -52,6 +52,7 @@
   (box :orientation "v"
        :space-evenly false
 	   :spacing 30
+	   :halign "fill"
     (workspaces :monitor monitor)
   	(label :class "swaymode"
            :angle 90
@@ -89,7 +90,7 @@
 
 (defwidget bottom [] 
   (box :orientation "v"
-	   :halign "center"
+	   :halign "fill"
 	   :valign "end"
 	   :vexpand true
 	   :space-evenly false
