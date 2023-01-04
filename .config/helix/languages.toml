@@ -1,71 +1,101 @@
 [[language]]
 name = "rust"
+scope = "source.rust"
+file-types = ["rs"]
 auto-format = true
 
 [language.config]
 checkOnSave = { command = "clippy" }
 
 [[language]]
-name = "markdown" 
+name = "markdown"
+scope = "source.markdown"
+file-types = ["md"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "markdown"] }
 auto-format = true
 
 [[language]]
-name = "mdx" 
+name = "mdx"
+scope = "source.mdx"
+file-types = ["mdx"]
+roots = []
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "mdx"] }
 auto-format = true
 
 [[language]]
-name = "vue" 
+name = "vue"
+scope = "source.vue"
+file-types = ["vue"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "vue"] }
 auto-format = true
 
 [[language]]
-name = "yaml" 
+name = "yaml"
+scope = "source.yaml"
+file-types = ["yaml", "yml"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "yaml"] }
 auto-format = true
 
 [[language]]
-name = "html" 
+name = "html"
+scope = "source.html"
+file-types = ["html"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "html"] }
 auto-format = true
 
 [[language]]
-name = "json" 
+name = "json"
+scope = "source.json"
+file-types = ["json"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "json"] }
 auto-format = true
 
 [[language]]
-name = "css" 
+name = "css"
+scope = "source.css"
+file-types = ["css"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "css"] }
 auto-format = true
 
 [[language]]
-name = "scss" 
+name = "scss"
+scope = "source.scss"
+file-types = ["scss"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "scss"] }
 auto-format = true
 
 [[language]]
-name = "less" 
+name = "less"
+scope = "source.less"
+file-types = ["less"]
+roots = []
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "less"] }
 auto-format = true
 
 [[language]]
-name = "javascript" 
+name = "javascript"
+scope = "source.javascript"
+file-types = ["js"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "javascript"] }
 auto-format = true
 
 [[language]]
-name = "jsx" 
+name = "jsx"
+scope = "source.jsx"
+file-types = ["jsx"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "javascript"] }
 auto-format = true
 
 [[language]]
-name = "typescript" 
+name = "typescript"
+scope = "source.typescript"
+file-types = ["ts"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "typescript"] }
 auto-format = true
 
 [[language]]
-name = "tsx" 
+name = "tsx"
+scope = "source.tsx"
+file-types = ["tsx"]
 formatter = { command = "pnpm" , args = ["prettier", "--parser", "typescript"] }
 auto-format = true
