@@ -26,6 +26,10 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export RUSTUP_HOME="$XDG_DATA_HOME/.rustup"
 export CARGO_HOME="$XDG_DATA_HOME/.cargo"
 
+# Node version manager (nvm)
+export NVM_DIR="$XDG_DATA_HOME/.nvm"
+
+# Append to $PATH
 # Add `~/.local/bin` to $PATH
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 # Add `$CARGO_HOME/bin` to $PATH

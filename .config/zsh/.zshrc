@@ -139,7 +139,9 @@ _comp_options+=(globdots)
 
 # nvm, the Nodejs version manager
 # WARNING: ~200ms slow
-#source /usr/share/nvm/init-nvm.sh
+source /usr/share/nvm/nvm.sh
+source /usr/share/nvm/bash_completion
+source /usr/share/nvm/install-nvm-exec
 
 #
 # FINAL STEPS
