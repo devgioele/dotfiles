@@ -3,6 +3,7 @@ theme = "onedarker"
 [editor]
 line-number = "relative"
 mouse = false
+auto-save = true
 
 [editor.search]
 smart-case = false
