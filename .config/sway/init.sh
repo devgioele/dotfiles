@@ -18,13 +18,11 @@
 #   Such programs are to be added in the below string `start_kill`.
 # 
 # Programs of type "A" can be started by sway with `exec <program>`.
-# Programs of type "B" are handled by this script, which is started by sway with `exec <script>`.
+# Programs of type "B" are handled by this script, which is to be started by sway with `exec <script>`.
 
 kill_start=""
 start=""
 start_kill="pipewire pipewire-alsa pipewire-pulse wireplumber"
-
-#echo '-------'
 
 for program in $kill_start; do
 	pkill --exact "$program"
@@ -37,11 +35,9 @@ done
 
 to_kill=""
 for program in $start_kill; do
-	#echo CURRENT STATE "$(ps -e)"
 	"$program" &
 	# Add PID to list of programs to kill later
 	if [ -n "$to_kill" ]; then
-		#echo "Prefixing to_kill with a space because to_kill is currently:${to_kill}|"
 		to_kill="$to_kill "
 	fi
 	to_kill="$to_kill$(printf $!)"
@@ -52,6 +48,5 @@ swaymsg -m -t SUBSCRIBE '[]'
 
 # Kill programs that are to be killed
 for pid in $to_kill; do
-	#echo Killing process "$pid"
 	kill "$pid"
 done

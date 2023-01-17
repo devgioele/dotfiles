@@ -52,8 +52,8 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 input type:keyboard {
 	repeat_delay 250
 	repeat_rate 25
-	xkb_layout "eu,el"
-    # Make caps lock an additional backspace
+	xkb_layout "eu,ru"
+    # Make caps like an additional backspace
     xkb_options caps:backspace
 }
 
@@ -107,6 +107,10 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 
     # Lock the screen
     bindsym $mod+Shift+Escape exec swaylock -f -c 000000
+
+    # Switch keyboard layout
+    bindsym $mod+Shift+Tab input type:keyboard xkb_switch_layout next
+
 #
 # Moving around:
 #
@@ -314,7 +318,7 @@ client.placeholder #000000 #0c0c0c #ffffff
 #
 
 # Bar
-exec_always eww open bar_0 && eww open bar_1 && eww reload
+exec_always ~/code/eww/target/release/eww open bar_0 && ~/code/eww/target/release/eww open bar_1 && ~/code/eww/target/release/eww reload
 
 # Wallpaper
 #exec swaybg -i ~/.config/sway/bg.jpg -m fill
@@ -326,7 +330,7 @@ exec polkit-dumb-agent
 # Notification daemon
 exec dunst
 
-# Other programs that are not terminated when sway terminates
-exec ~/.config/sway/init.sh >> ~/tmp/init.log
+# Start additional programs with greater versatility
+exec ~/.config/sway/init.sh >> /dev/null
 
 include /etc/sway/config.d/*
