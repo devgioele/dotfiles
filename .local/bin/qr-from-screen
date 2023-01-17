@@ -7,7 +7,11 @@
 # To work around this, the screenshot is saved to a temporary file.
 
 FILENAME="grim-tmp.png"
+# Save screenshot
 grim "$FILENAME"
+# Detect QR-code
 URI=$(zbarimg -q --raw "$FILENAME")
+# Remove screenshot
 rm "$FILENAME"
+# Print payload
 printf "$URI"
