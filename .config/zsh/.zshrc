@@ -42,7 +42,6 @@ PROMPT='%F{069}%n%f%F{11}@%f%F{069}%M%f%F{11}:%f%F{7}%~%f%F{11}>%f '
 
 alias ls="ls -la --color=auto"
 alias du="du -ahc --max-depth 1"
-alias dus="du | sort -h"
 alias diff="diff --color"
 alias gemini="amfora"
 alias cp="cp -i"
@@ -71,6 +70,10 @@ alias media="cd /mnt/turtle/media"
 # Functions
 #
 
+function dus {
+    du "$@" | sort -h
+}
+
 function timer { 
     if [ -z "$1" ]
     then
@@ -94,7 +97,16 @@ function stopwatch {
 }
 
 function qrshow {
-    qrencode -o - "$1" | feh -
+    if [ "$1" = "--" ] || [ -z "$1" ]; then
+        read payload
+    else
+        payload="$1"
+    fi
+    if [ -z "$payload" ]; then
+        echo "Missing payload!"
+    else
+        qrencode -o - "$payload" | feh - & disown
+    fi
 }
 
 
