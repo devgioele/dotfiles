@@ -21,7 +21,7 @@ The selection criteria is inspired by [the suckless philosophy](https://suckless
 - Ease of use
 
 The list is subject to change. I am especially looking for better alternatives
-to Sway, Waybar and pulseaudio. Write me for suggestions.
+to Sway and eww. Write me for suggestions.
 
 ## Software list
 
@@ -37,14 +37,14 @@ to Sway, Waybar and pulseaudio. Write me for suggestions.
 - Wayland compositor: [Sway](https://swaywm.org/)
 - Terminal: [Alacritty](https://alacritty.org/)
 - Clipboard tool: [wl-clipboard](https://github.com/bugaevc/wl-clipboard)
-- Status bar: [Waybar](https://github.com/Alexays/Waybar)
+- Status bar: [eww](https://github.com/elkowar/eww)
 - Screen locker: [swaylock](https://github.com/swaywm/swaylock)
 - App launcher: [tofi](https://github.com/philj56/tofi)
 - Notification server: [dunst](https://dunst-project.org/)
 - File manager: [lf](https://github.com/gokcehan/lf)
 - Default applications manager: [handlr](https://github.com/chmln/handlr)
 - Calculator: [bc](https://www.gnu.org/software/bc/)
-- Audio server: [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/)
+- Video and audio server: [PipeWire](https://pipewire.org/)
 - Media player: [mpv](https://mpv.io/)
 - PDF viewer: [zathura](https://pwmt.org/projects/zathura/)
 - RSS/Atom feed reader: [newsboat](https://newsboat.org/)
@@ -64,12 +64,8 @@ Recommended extensions:
 ### Fonts
 
 The following fonts give a sufficiently high coverage for everyday needs:
-- noto-fonts
-- noto-fonts-cjk
-- noto-fonts-emoji
 - gnu-free-fonts
-- ttf-jetbrains-mono
-- ttf-nerd-fonts-symbols-2048-em-mono
+- ttf-hack-nerd
 
 ## A message from your future self
 
