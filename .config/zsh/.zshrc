@@ -65,7 +65,8 @@ alias metadata="exiv2"
 # Directory aliases
 #
 
-alias media="cd /mnt/turtle/media"
+alias media="lfcd /mnt/turtle/media"
+alias courses="lfcd /mnt/turtle/media/courses"
 
 #
 # Functions
