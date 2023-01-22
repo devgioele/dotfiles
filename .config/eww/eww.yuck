@@ -75,7 +75,7 @@
     :space-evenly false
     :class "workspaces"
     :halign "fill"
-    :spacing 10
+    :spacing 7
     (for entry in {
         [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
       }
