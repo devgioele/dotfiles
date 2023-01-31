@@ -19,6 +19,9 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
+# Declare the display compositor
+export XDG_CURRENT_DESKTOP="sway"
+
 # Let qt5ct configure Qt5 applications
 export QT_QPA_PLATFORMTHEME=qt5ct
 
@@ -47,5 +50,7 @@ fi
 # If there is no graphical session yet and the login happened on the first tty, start wayland
 if [ -z $WAYLAND_DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]
 then
-	exec sway
+	# Start the window manager (WM) through a new D-BUS session bus
+	# that exits when the WM exits
+	exec dbus-launch --exit-with-session "$XDG_CURRENT_DESKTOP"
 fi
