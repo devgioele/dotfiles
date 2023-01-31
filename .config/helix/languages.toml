@@ -11,16 +11,16 @@ checkOnSave = { command = "clippy" }
 name = "markdown"
 scope = "source.markdown"
 file-types = ["md"]
-formatter = { command = "npx" , args = ["prettier", "--parser", "markdown"] }
+formatter = { command = "npx" , args = ["prettier", "--parser", "markdown", "--print-width", "70", "--prose-wrap", "always"] }
 auto-format = true
 
-[[language]]
-name = "mdx"
-scope = "source.mdx"
-file-types = ["mdx"]
-roots = []
-formatter = { command = "npx" , args = ["prettier", "--parser", "mdx"] }
-auto-format = true
+#[[language]]
+#name = "mdx"
+#scope = "source.mdx"
+#file-types = ["mdx"]
+#roots = []
+#formatter = { command = "npx" , args = ["prettier", "--parser", "mdx"] }
+#auto-format = true
 
 [[language]]
 name = "vue"
@@ -75,7 +75,7 @@ auto-format = true
 [[language]]
 name = "javascript"
 scope = "source.javascript"
-file-types = ["js"]
+file-types = ["js", "mjs"]
 formatter = { command = "npx" , args = ["prettier", "--parser", "javascript"] }
 auto-format = true
 
