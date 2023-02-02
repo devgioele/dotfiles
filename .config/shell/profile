@@ -8,6 +8,7 @@
 
 # Default programs
 export EDITOR="helix"
+export VISUAL="$EDITOR"
 export TERMINAL="alacritty"
 export BROWSER="librewolf"
 
@@ -26,16 +27,18 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export RUSTUP_HOME="$XDG_DATA_HOME/.rustup"
 export CARGO_HOME="$XDG_DATA_HOME/.cargo"
 
+# Add PATH, MANPATH, etc. for Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 # Add `~/.local/bin` to $PATH
-export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+#export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 # Add `$CARGO_HOME/bin` to $PATH
-export PATH="$PATH:$CARGO_HOME/bin"
+#export PATH="$PATH:$CARGO_HOME/bin"
 
 # Kill ssh-agent if running
-pkill -u "$USER" ssh-agent
+#pkill -u "$USER" ssh-agent
 # Start ssh-agent
-ssh-agent -t 900 > "$XDG_RUNTIME_DIR/ssh-agent.env"
-if [ ! -f "$SSH_AUTH_SOCK" ]
-then
-    source "$XDG_RUNTIME_DIR/ssh-agent.env" > /dev/null
-fi
+#ssh-agent -t 900 > "$XDG_RUNTIME_DIR/ssh-agent.env"
+#if [ ! -f "$SSH_AUTH_SOCK" ]
+#then
+#    source "$XDG_RUNTIME_DIR/ssh-agent.env" > /dev/null
+#fi
