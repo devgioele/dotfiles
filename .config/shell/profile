@@ -27,6 +27,9 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export RUSTUP_HOME="$XDG_DATA_HOME/.rustup"
 export CARGO_HOME="$XDG_DATA_HOME/.cargo"
 
+# Node version manager (nvm)
+export NVM_DIR="$XDG_DATA_HOME/.nvm"
+
 # Add PATH, MANPATH, etc. for Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 # Add `~/.local/bin` to $PATH
