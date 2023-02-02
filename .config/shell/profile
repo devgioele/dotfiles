@@ -7,7 +7,7 @@
 #
 
 # Default programs
-export EDITOR="helix"
+export EDITOR="hx"
 export VISUAL="$EDITOR"
 export TERMINAL="alacritty"
 export BROWSER="librewolf"
