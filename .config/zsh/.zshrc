@@ -150,3 +150,6 @@ _comp_options+=(globdots)
 # Load syntax highlighting
 # The repo: https://github.com/zdharma/fast-syntax-highlighting
 source /usr/share/zsh/plugins/fast-syntax-highlighting/F-Sy-H.plugin.zsh 2>/dev/null
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
