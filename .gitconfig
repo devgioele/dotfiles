@@ -1,13 +1,15 @@
 [user]
-	email = gioele@devgioele.xyz
+	email = gioele.devitti@aboutbits.it
 	name = devgioele
+	signingkey = 263B7AF7E88F7BE94544020E4277B6DF9844942A
 [credential]
 	helper = /usr/bin/pass-git-helper
 	useHttpPath = true
 [init]
 	defaultBranch = main
 [core]
-	editor = helix
+	editor = hx
+	hooksPath = .githooks
 [pull]
 	rebase = true
 [credential]
@@ -21,3 +23,11 @@
     lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
     lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
     lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+[gpg]
+	program = gpg
+[commit]
+	gpgsign = true
+[push]
+	autoSetupRemote = true
+[rebase]
+	autosquash = true
