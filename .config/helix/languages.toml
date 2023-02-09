@@ -1,4 +1,9 @@
 [[language]]
+name = "java"
+file-types = ["java"]
+auto-format = true
+
+[[language]]
 name = "rust"
 scope = "source.rust"
 file-types = ["rs"]
@@ -34,7 +39,7 @@ name = "yaml"
 scope = "source.yaml"
 file-types = ["yaml", "yml"]
 formatter = { command = "npx" , args = ["prettier", "--parser", "yaml"] }
-auto-format = true
+auto-format = false
 
 [[language]]
 name = "html"
@@ -48,7 +53,7 @@ name = "json"
 scope = "source.json"
 file-types = ["json"]
 formatter = { command = "npx" , args = ["prettier", "--parser", "json"] }
-auto-format = true
+auto-format = false
 
 [[language]]
 name = "css"
