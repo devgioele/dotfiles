@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Some programs (call them programs "A") terminate together with sway.
-# Other programs (call them programs "B") do not and there multiple ways to avoid having 
-# multiple instances of such programs:
+# Other programs (call them programs "B") do not and there are multiple ways to
+# avoid having multiple instances of such programs:
 #
 # - If a new instance is required on login (because of PID or some other reason),
 #   when sway starts, let sway kill the existing instance and start a new one.
