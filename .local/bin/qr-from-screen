@@ -1,13 +1,16 @@
 #!/bin/sh
 
-# This script takes a screen shot with `grim` and
-# scans for a QR code using `zbarimg`.
+# This script takes a screenshot and scans it for a QR code.
 # A script was necessary, because `zbarimg` does not
-# support reading from STDIN.
-# To work around this, the screenshot is saved to a temporary file.
+# support reading from STDIN. To work around this, the screenshot
+# is saved to a temporary file.
 
-FILENAME="grim-tmp.png"
-grim "$FILENAME"
+FILENAME="screencapture-tmp.png"
+screencapture -i "$FILENAME"
+if [ ! -f "$FILENAME" ]; then
+  echo "Screen capture interrupted"
+  exit 1
+fi
 URI=$(zbarimg -q --raw "$FILENAME")
 rm "$FILENAME"
-printf "$URI"
+printf "%s" "$URI"
