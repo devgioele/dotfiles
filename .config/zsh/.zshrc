@@ -34,7 +34,7 @@ setopt globdots
 # https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
 # For xterm-256 colors:
 # https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
-PROMPT='%F{069}%n%f%F{11}@%f%F{069}%M%f%F{11}:%f%F{7}%~%f%F{11}>%f '
+PROMPT='%F{069}%n%f%F{11}@%f%F{069}%m%f%F{11}:%f%F{7}%~%f%F{11}>%f '
 
 #
 # Aliases
