@@ -233,11 +233,11 @@ set $exit "prlhs"
 mode $exit {
     # loginctl allows graphical sessions to run power-related commands without being root
     bindsym --to-code {
-        p exec loginctl poweroff
-        r exec loginctl reboot
-        l exec swaymsg exit
-        h exec loginctl hibernate
-        s exec loginctl suspend
+        p exec sway mode "default" && loginctl poweroff
+        r exec sway mode "default" && loginctl reboot
+        l exec sway mode "default" && swaymsg exit
+        h exec sway mode "default" && loginctl hibernate
+        s exec sway mode "default" && loginctl suspend
         
         # Return to default mode
         $mod+x mode "default"
@@ -332,5 +332,9 @@ exec dunst
 
 # Start additional programs with greater versatility
 exec ~/.config/sway/init.sh >> /dev/null
+
+# Start the backend of xdg-desktop-portal to
+# enable WebRTC screen sharing
+exec /usr/lib/xdg-desktop-portal-wlr >> ~/tmp/xdg-desktop-portal-wlr.logs
 
 include /etc/sway/config.d/*
