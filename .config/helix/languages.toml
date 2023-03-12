@@ -75,7 +75,7 @@ auto-format = true
 [[language]]
 name = "javascript"
 scope = "source.javascript"
-file-types = ["js", "mjs"]
+file-types = ["js", "mjs", "cjs"]
 formatter = { command = "npx" , args = ["prettier", "--parser", "javascript"] }
 auto-format = true
 
