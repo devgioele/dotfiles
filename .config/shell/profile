@@ -7,10 +7,10 @@
 #
 
 # Default programs
-export EDITOR="hx"
+export EDITOR="nvim"
 export VISUAL="$EDITOR"
 export TERMINAL="alacritty"
-export BROWSER="librewolf"
+export BROWSER="brave"
 
 # To clean up the home directory
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -36,15 +36,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # Add PATH, MANPATH, etc. for Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 # Add `~/.local/bin` to $PATH
-#export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+export PATH="$PATH:$HOME/.local/bin"
 # Add `$CARGO_HOME/bin` to $PATH
-#export PATH="$PATH:$CARGO_HOME/bin"
-
-# Kill ssh-agent if running
-#pkill -u "$USER" ssh-agent
-# Start ssh-agent
-#ssh-agent -t 900 > "$XDG_RUNTIME_DIR/ssh-agent.env"
-#if [ ! -f "$SSH_AUTH_SOCK" ]
-#then
-#    source "$XDG_RUNTIME_DIR/ssh-agent.env" > /dev/null
-#fi
+export PATH="$PATH:$CARGO_HOME/bin"
