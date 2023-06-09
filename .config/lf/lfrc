@@ -8,7 +8,7 @@
 # '&' to run an async shell cmd
 
 map <enter> shell
-map o &handlr open "$f"
+map o &open "$f"
 map gg top
 map ge bottom
 map x cut
