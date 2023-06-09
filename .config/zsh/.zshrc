@@ -37,12 +37,43 @@ setopt globdots
 PROMPT='%F{069}%n%f%F{11}@%f%F{069}%m%f%F{11}:%f%F{7}%~%f%F{11}>%f '
 
 #
-# Aliases
+# Key bindings
 #
 
-alias helix="hx"
+# Use vi-like defaults
+bindkey -v
+# option as alt
+bindkey "\e[1;5D" alt
+# ctrl-left and ctrl-right
+bindkey "\e[1;5D"      backward-word
+bindkey "\e[1;5C"      forward-word
+# ctrl-delete-forwards, ctrl-delete-backwards
+bindkey "\e[3;5~"      kill-word
+bindkey "\x15"         vi-backward-kill-word
+# del, home, end
+bindkey "^[[3~"        delete-char
+# bindkey "\e[H"         beginning-of-line
+# bindkey "\e[F"         end-of-line
+# bindkey "^[^M"         self-insert-unmeta
+# shift+del, shift+left, shift+right, shift+up, shift+down
+bindkey "^[[3;2~"      delete-char
+bindkey "^[[1;2D"      backward-word
+bindkey "^[[1;2C"      forward-word
+bindkey "^[[1;2A"      beginning-of-line
+bindkey "^[[1;2B"      end-of-line
+
+#
+# Directory aliases
+#
+
+#
+# Aliases & Functions
+#
+
+alias vi="nvim"
+alias vim="nvim"
 alias ls="ls -la --color=auto"
-alias du="du -ahc -d 1"
+alias du="du -hc -d 1"
 alias dus="du | sort -h"
 alias diff="diff --color"
 alias gemini="amfora"
@@ -53,7 +84,6 @@ alias torrent="stig"
 alias calc="bc -lq"
 alias irc="catgirl"
 alias mail="neomutt"
-alias scanqr="~/scripts/qr-from-screen.sh"
 alias gemini="amfora"
 alias notify-play="mpv --no-terminal /usr/share/sounds/notification.mp3"
 alias rss="newsboat"
@@ -61,19 +91,20 @@ alias rss="newsboat"
 # Do not pass the URL of the channel itself.
 alias yt-channel-id="pipe-viewer --no-interactive --extract '*CHANNELID*'"
 alias metadata="exiv2"
+alias fzf="fzf --bind=tab:down,btab:up"
+alias gitc="git checkout"
+alias gitd="git diff --color-words"
+alias gitdl="git diff"
+alias gitdw="gitd --word-diff"
+alias gitb="git branch"
+function gitbc {
+    git branch $1 && git checkout $1
+}
+alias ghpr="gh pr create -a '@me'"
+alias docker-psql-app="docker-compose exec postgres psql app -x"
+alias cdfzf='cd "$(dirname "$(fzf)")"'
 
-#
-# Directory aliases
-#
-
-alias media="lfcd /mnt/turtle/media"
-alias courses="lfcd /mnt/turtle/media/courses"
-
-#
-# Functions
-#
-
-function timer { 
+function timer {
     if [ -z "$1" ]
     then
         echo "Missing number of seconds!"
@@ -82,8 +113,7 @@ function timer {
         echo "$TIME seconds starting from now!"
         sleep $TIME
         echo "Time is over!"
-        notify-send --urgency=critical "Time is over!"
-        notify-play 
+        osascript -e 'tell app "System Events" to display dialog "Time is over!"' >/dev/null
     fi
 }
 
@@ -99,11 +129,19 @@ function qrshow {
     qrencode -o - "$1" | feh -
 }
 
+fzf-content() {
+    # local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
+    # local INITIAL_QUERY=""
+    # local FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'"
+    # FZF_RESULT="$(fzf --delimiter=':' --bind "change:reload:$RG_PREFIX {q} || true" --ansi --disabled --query "$INITIAL_QUERY")"
+    # TODO
+    # rg --line-number "$1" | fzf --delimiter=':' -n 2.. --preview-window '+{2}-/2' --preview 'clp -h {2} {1}' --bind 'ctrl-o:execute(hx {1})'
+}
 
 # Use lf to switch directories
 lfcd () {
     tmp="$(mktemp -uq)"
-    trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
+    trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM EXIT' HUP INT QUIT TERM EXIT
     lf -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
@@ -111,24 +149,47 @@ lfcd () {
     fi
 }
 
+for-filenames-matching () {
+    for file in **/*(.); do
+        if echo "$file" | grep -qi "$1"; then
+            "$2"
+        fi
+    done
+}
+
+replace-with () {
+    sed -i '' "s/$1/$2/g" "$3"
+}
+
 #
 # Key bindings
 #
+# See `man zshzle`
 
 # cd using lf
-bindkey -s '^o' '^ulfcd\n'
+bindkey -s '^o' '^ulfcd^M'
 # bc, the arbitrary precision calculator, but with the mathlib and quiet
-bindkey -s '^a' '^ubc -lq\n'
-# cd with fuzzy finding
-bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n'
+bindkey -s '^a' '^ubc -lq^M'
+# open with nvim, search by file name
+bindkey -s '^f' '^unvim -c "Telescope find_files"^M'
+# open with nvim, search by file content
+bindkey -s '^g' '^unvim -c "Telescope live_grep"^M'
+# git status
+bindkey -s '^s' '^ugit status^M'
+# Move through suggestions with up and down keys
+bindkey '^k' history-beginning-search-backward
+bindkey '^j' history-beginning-search-forward
 
-setopt autocd		# Automatically cd into typed directory.
-stty stop undef		# Disable ctrl-s to freeze terminal.
+setopt autocd           # Automatically cd into typed directory.
+stty stop undef         # Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
+# Autocompletion for programs installed with homebrew
+FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*' file-list all
 zmodload zsh/complist
 compinit
 # Include hidden files
@@ -144,12 +205,18 @@ _comp_options+=(globdots)
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-#
+# Docker desktop
+source ~/.docker/init-zsh.sh || true
+
 # FINAL STEPS
 #
 
 # SDKMAN
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Fish-like autosuggestions
+# https://github.com/zsh-users/zsh-autosuggestions
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax highlighting
 # The repo: https://github.com/zdharma/fast-syntax-highlighting
