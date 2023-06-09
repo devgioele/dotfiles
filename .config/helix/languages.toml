@@ -16,16 +16,16 @@ checkOnSave = { command = "clippy" }
 name = "markdown"
 scope = "source.markdown"
 file-types = ["md"]
-formatter = { command = "npx" , args = ["prettier", "--parser", "markdown", "--print-width", "70", "--prose-wrap", "always"] }
+formatter = { command = "npx" , args = ["prettier", "--parser", "markdown"] }
 auto-format = true
 
-#[[language]]
-#name = "mdx"
-#scope = "source.mdx"
-#file-types = ["mdx"]
-#roots = []
-#formatter = { command = "npx" , args = ["prettier", "--parser", "mdx"] }
-#auto-format = true
+# [[language]]
+# name = "mdx"
+# scope = "source.mdx"
+# file-types = ["mdx"]
+# roots = []
+# formatter = { command = "npx" , args = ["prettier", "--parser", "mdx"] }
+# auto-format = true
 
 [[language]]
 name = "vue"
@@ -34,12 +34,12 @@ file-types = ["vue"]
 formatter = { command = "npx" , args = ["prettier", "--parser", "vue"] }
 auto-format = true
 
-[[language]]
-name = "yaml"
-scope = "source.yaml"
-file-types = ["yaml", "yml"]
-formatter = { command = "npx" , args = ["prettier", "--parser", "yaml"] }
-auto-format = false
+# [[language]]
+# name = "yaml"
+# scope = "source.yaml"
+# file-types = ["yaml", "yml"]
+# formatter = { command = "npx" , args = ["prettier", "--parser", "yaml"] }
+# auto-format = true
 
 [[language]]
 name = "html"
@@ -80,7 +80,7 @@ auto-format = true
 [[language]]
 name = "javascript"
 scope = "source.javascript"
-file-types = ["js", "mjs"]
+file-types = ["js", "mjs", "cjs"]
 formatter = { command = "npx" , args = ["prettier", "--parser", "javascript"] }
 auto-format = true
 
@@ -93,7 +93,7 @@ auto-format = true
 
 [[language]]
 name = "typescript"
-scope = "source.typescript"
+scope = "source.ts"
 file-types = ["ts"]
 formatter = { command = "npx" , args = ["prettier", "--parser", "typescript"] }
 auto-format = true

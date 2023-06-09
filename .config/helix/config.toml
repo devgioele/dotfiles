@@ -3,7 +3,15 @@ theme = "dark_plus"
 [editor]
 line-number = "relative"
 mouse = false
-auto-save = true
+auto-save = true 
 
 [editor.search]
-smart-case = false
+smart-case = true
+
+[editor.soft-wrap]
+enable = true
+
+# NOTE: As soon as implemented by the next version, add those shortcuts for the picker
+# [keys.picker]
+# ctrl-k = "previous entry"
+# ctrk-j = "next entry"
