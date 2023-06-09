@@ -8,7 +8,7 @@
 [init]
 	defaultBranch = main
 [core]
-	editor = hx
+	editor = nvim
 	hooksPath = .githooks
 [pull]
 	rebase = true
