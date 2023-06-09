@@ -1,4 +1,5 @@
 local actions = require('telescope.actions')
+local previewers = require('telescope.previewers')
 local lga_actions = require('telescope-live-grep-args.actions')
 
 vim.cmd([[
@@ -12,7 +13,9 @@ vim.cmd([[
 
 require('telescope').setup({
   defaults = {
-    path_display = { truncate = 1 },
+    path_display = {
+      truncate = 1
+    },
     layout_config = {
       prompt_position = 'top',
     },
@@ -23,10 +26,13 @@ require('telescope').setup({
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
         ["<C-n>"] = actions.cycle_history_next,
-        ["<C-p>"] = actions.cycle_history_prev, 
+        ["<C-p>"] = actions.cycle_history_prev,
       },
     },
-    file_ignore_patterns = { '.git/', 'node_modules/' },
+    file_ignore_patterns = { '.git/' },
+    cache_picker = {
+      num_pickers = 5
+    }
   },
   pickers = {
     find_files = {
@@ -42,15 +48,19 @@ require('telescope').setup({
       prompt_title = 'History',
     },
     lsp_references = {
-      previewer = false
+      -- preview = require('telescope.config').values.file_previewer,
+      show_line = false
+    },
+    diagnostics = {
+      show_line = false,
+      -- open_float = true
     },
   },
   extensions = {
     live_grep_args = {
       mappings = {
         i = {
-          ["<C-l>"] = lga_actions.quote_prompt(),
-          ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+          ["<A-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
         },
       },
     },

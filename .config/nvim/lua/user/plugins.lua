@@ -41,7 +41,12 @@ use({
 })
 
 -- Pairs of handy bracket mappings, like [b and ]b
+-- NOTE: Not using because of inability to write closing bracket in some occasions
 -- use('tpope/vim-unimpaired')
+
+-- Replace existing text with the contents of a register
+-- use('inkarkat/vim-ReplaceWithRegister')
+-- NOTE: Consider using https://github.com/gbprod/substitute.nvim
 
 -- UNIX helpers
 use('tpope/vim-eunuch')
@@ -81,15 +86,6 @@ use({
   config = function()
     require("telescope").load_extension("ui-select")
   end
-})
-
--- File navigator
-use({
-  'kyazdani42/nvim-tree.lua',
-  requires = 'kyazdani42/nvim-web-devicons',
-  config = function()
-    require('user/plugins/_nvim-tree')
-  end,
 })
 
 -- Git integration
@@ -156,6 +152,19 @@ use({
   },
   config = function()
     require('user/plugins/_cmp')
+  end,
+})
+
+-- Color picker and highlighter
+use({
+  'uga-rosa/ccc.nvim',
+  config = function()
+    require('ccc').setup({
+      highlighter = {
+        auto_enable = true,
+        lsp = true,
+      }
+    })
   end,
 })
 

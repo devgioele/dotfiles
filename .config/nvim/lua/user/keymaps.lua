@@ -13,16 +13,13 @@ vim.keymap.set('v', '>', '>gv')
 
 -- Maintain cursor position when yanking a visual selection
 -- Set a mark, yank, move back to the mark
-vim.keymap.set('v', 'y', 'myy`y')
-vim.keymap.set('v', 'y', 'myY`y')
+-- vim.keymap.set('v', 'y', 'myy`y')
+-- vim.keymap.set('v', 'y', 'myY`y')
 
--- Paste replace visual selection without copying it
--- The register '_' is a black-hole register
-vim.keymap.set('v', 'p', '"_dP')
-
--- Shortcut to insert trailing ; or , from insert mode
-vim.keymap.set('i', ';;', '<Esc>A;')
-vim.keymap.set('i', ',,', '<Esc>A,')
+-- Quickly yank to and paste from system clipboard
+vim.keymap.set({'n', 'v'}, '<Leader>y', '"+y')
+vim.keymap.set('n', '<Leader>p', '"+p')
+vim.keymap.set('n', '<Leader>P', '"+P')
 
 -- Quickly clear search highlighting
 vim.keymap.set('n', '<Leader>/', ':nohlsearch<CR>')
@@ -39,6 +36,14 @@ vim.keymap.set('n', '<A-j>', ':move .+1<CR>==')
 vim.keymap.set('n', '<A-k>', ':move .-2<CR>==')
 vim.keymap.set('v', '<A-j>', ":move '>+1<CR>gv=gv")
 vim.keymap.set('v', '<A-k>', ":move '<-2<CR>gv=gv")
+
+-- Move between buffers
+vim.keymap.set('n', '[b', ':bprev<CR>')
+vim.keymap.set('n', ']b', ':bnext<CR>')
+
+-- Move between quickfix entries
+vim.keymap.set('n', '[q', ':cprevious<CR>')
+vim.keymap.set('n', ']q', ':cnext<CR>')
 
 -- Allow gf to open non-existent files
 -- vim.keymap.set('n', 'gf', ':edit <cfile><CR>')

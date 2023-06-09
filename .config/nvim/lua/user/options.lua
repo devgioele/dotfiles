@@ -22,6 +22,7 @@ vim.opt.title = true
 -- Disable mouse support because unacceptable with WMs that do not have 'Focus Follow Mouse'
 vim.opt.mouse = ''
 
+-- Enable true color
 vim.opt.termguicolors = true
 
 -- Disable spell checks
