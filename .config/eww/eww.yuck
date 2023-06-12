@@ -115,7 +115,7 @@
        :space-evenly false
 	   :spacing 5
 	(label :angle 90
-	       :text {volume.sink.muted ? "婢" : "墳 ${volume.sink.volume}"})))
+	       :text {volume.sink.muted ? "󰖁" : "󰕾 ${volume.sink.volume}"})))
 
 (defwidget volume_source []
   (box :class "volume_source"
@@ -128,19 +128,19 @@
 
 (defwidget network_short []
 	(label :text {network_wlan0_state == "UP" ? "" :
-	              network_eth0_state == "UP" ? "" : ""}))
+	              network_eth0_state == "UP" ? "󰈀" : "󰂭"}))
 
 (defwidget network_long []
   (label :angle 90
-         :text {network_wlan0_state == "UP" ? " 祝 ${network_speed.wlan0.upload}     ${network_speed.wlan0.download}":
-    network_eth0_state == "UP" ? " 祝 ${round(EWW_NET.eth0.NET_UP/1000,0)}     ${round(EWW_NET.eth0.NET_DOWN/1000,0)} kB" : ""}))
+         :text {network_wlan0_state == "UP" ? "  ${network_speed.wlan0.upload}     ${network_speed.wlan0.download}":
+    network_eth0_state == "UP" ? "󰈀  ${round(EWW_NET.eth0.NET_UP/1000,0)}     ${round(EWW_NET.eth0.NET_DOWN/1000,0)} kB" : "󰂭"}))
 
 (defwidget gpu []
   (box :orientation "v"
        :halign "fill"
 	   :space-evenly false
 	   :spacing 8
-    "" (box :orientation "v"
+    "" (box :orientation "v"
 	         :halign "fill"
 			 :class "subcontent"
 			 :space-evenly false
@@ -159,7 +159,7 @@
        :halign "fill"
 	   :space-evenly false
 	   :spacing 8
-    "" (box :orientation "v"
+    "" (box :orientation "v"
 	         :halign "fill"
 			 :class "subcontent"
 			 :space-evenly false
@@ -182,7 +182,7 @@
 	   :tooltip EWW_DISK
 	   :space-evenly false
 	   :spacing 6
-    "" "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}"))
+    "󰋊" "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}"))
 
 (defwidget ram []
   (box :orientation "v"
@@ -195,7 +195,7 @@
        :halign "center"
 	   :hexpand true 
 	   :space-evenly false
-    "" (label 
+    "󰌌" (label 
 	      :angle 90
 		  :text kbd_lyt_current)))
 
@@ -205,8 +205,8 @@
                EWW_BATTERY.BAT0.status == "Discharging" ? "bat_discharging_high" :
 	           EWW_BATTERY.BAT0.status == "Not charging" ? "bat_not_charging" :
 	           "bat_charging"}
-    {EWW_BATTERY.BAT0.status == "Discharging" ? "" :
-	  EWW_BATTERY.BAT0.status == "Not charging" ? "ﮣ" :
+    {EWW_BATTERY.BAT0.status == "Discharging" ? "󰁹" :
+	  EWW_BATTERY.BAT0.status == "Not charging" ? "󰚥" :
 	  ""}
 	{EWW_BATTERY.BAT0.capacity}))
 
@@ -219,7 +219,7 @@
 	       :halign "center"
 		   :spacing 4
 		   :space-evenly false
-		"" (box :orientation "v"
+		"" (box :orientation "v"
 		         :halign "center"
 				 :spacing 0
 				 :space-evenly false
@@ -246,7 +246,7 @@
 		 :halign "center"
 	     :spacing 4
 	     :space-evenly false
-	  "" (box :orientation "v"
+	  "" (box :orientation "v"
 	         :halign "center"
 			 :spacing 0
 			 :space-evenly false
