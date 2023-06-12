@@ -47,7 +47,6 @@ do
     fi
   elif [ -n "$codec" ]
   then
-    # Convert to H.264 inside MKV
     echo "Converting file '$inputPath'..."
     if ffmpeg -fflags +genpts -i "$inputPath" -map 0 -map -d -map -t -map -v -map V -c:v libx264 -crf 24 -preset fast -c:a copy -c:s copy "$outputPath"
     then
