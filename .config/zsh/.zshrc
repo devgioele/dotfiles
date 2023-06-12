@@ -40,6 +40,7 @@ PROMPT='%F{069}%n%f%F{11}@%f%F{069}%M%f%F{11}:%f%F{7}%~%f%F{11}>%f '
 # Aliases
 #
 
+alias lsblk="lsblk -f"
 alias ls="ls -la --color=auto"
 alias du="du -ahc --max-depth 1"
 alias diff="diff --color"
@@ -59,6 +60,8 @@ alias rss="newsboat"
 # Do not pass the URL of the channel itself.
 alias yt-channel-id="pipe-viewer --no-interactive --extract '*CHANNELID*'"
 alias metadata="exiv2"
+alias android-mount="aft-mtp-mount"
+alias poweroffdisk="udisksctl power-off -b"
 
 #
 # Directory aliases
@@ -130,7 +133,11 @@ bindkey -s '^o' '^ulfcd\n'
 # bc, the arbitrary precision calculator, but with the mathlib and quiet
 bindkey -s '^a' '^ubc -lq\n'
 # cd with fuzzy finding
-bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n'
+bindkey -s '^s' '^ucd "$(dirname "$(fzf)")"\n'
+# open with helix, search by file name
+bindkey -s '^f' '^uhx .\n'
+# git status
+bindkey -s '^g' '^ugit status\n'
 
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
@@ -139,6 +146,7 @@ setopt interactive_comments
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*' file-list all
 zmodload zsh/complist
 compinit
 # Include hidden files
