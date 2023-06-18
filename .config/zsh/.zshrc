@@ -37,12 +37,21 @@ setopt globdots
 PROMPT='%F{069}%n%f%F{11}@%f%F{069}%M%f%F{11}:%f%F{7}%~%f%F{11}>%f '
 
 #
-# Aliases
+#
+# Directory aliases
+#
+
+#
+# Aliases & Functions
 #
 
 alias lsblk="lsblk -f"
+alias vi="nvim"
+alias vim="nvim"
 alias ls="ls -la --color=auto"
 alias du="du -ahc --max-depth 1"
+alias du="du -hc -d 1"
+alias dus="du | sort -h"
 alias diff="diff --color"
 alias gemini="amfora"
 alias cp="cp -i"
@@ -52,7 +61,6 @@ alias torrent="stig"
 alias calc="bc -lq"
 alias irc="catgirl"
 alias mail="neomutt"
-alias scanqr="~/scripts/qr-from-screen.sh"
 alias gemini="amfora"
 alias notify-play="mpv --no-terminal /usr/share/sounds/notification.mp3"
 alias rss="newsboat"
@@ -62,22 +70,20 @@ alias yt-channel-id="pipe-viewer --no-interactive --extract '*CHANNELID*'"
 alias metadata="exiv2"
 alias android-mount="aft-mtp-mount"
 alias poweroffdisk="udisksctl power-off -b"
-
-#
-# Directory aliases
-#
-
 alias media="cd /mnt/turtle/media"
-
-#
-# Functions
-#
-
-function dus {
-    du "$@" | sort -h
+alias fzf="fzf --bind=tab:down,btab:up"
+alias gitc="git checkout"
+alias gitd="git diff --color-words"
+alias gitdl="git diff"
+alias gitdw="gitd --word-diff"
+alias gitb="git branch"
+function gitbc {
+    git branch $1 && git checkout $1
 }
+alias ghpr="gh pr create -a '@me'"
+alias cdfzf='cd "$(dirname "$(fzf)")"'
 
-function timer { 
+function timer {
     if [ -z "$1" ]
     then
         echo "Missing number of seconds!"
@@ -124,23 +130,39 @@ lfcd () {
     fi
 }
 
+for-filenames-matching () {
+    for file in **/*(.); do
+        if echo "$file" | grep -qi "$1"; then
+            "$2"
+        fi
+    done
+}
+
+replace-with () {
+    sed -i '' "s/$1/$2/g" "$3"
+}
+
 #
 # Key bindings
 #
+# See `man zshzle`
 
 # cd using lf
-bindkey -s '^o' '^ulfcd\n'
+bindkey -s '^o' '^ulfcd^M'
 # bc, the arbitrary precision calculator, but with the mathlib and quiet
-bindkey -s '^a' '^ubc -lq\n'
-# cd with fuzzy finding
-bindkey -s '^s' '^ucd "$(dirname "$(fzf)")"\n'
-# open with helix, search by file name
-bindkey -s '^f' '^uhx .\n'
+bindkey -s '^a' '^ubc -lq^M'
+# open with nvim, search by file name
+bindkey -s '^f' '^unvim -c "Telescope find_files"^M'
+# open with nvim, search by file content
+bindkey -s '^g' '^unvim -c "Telescope live_grep"^M'
 # git status
-bindkey -s '^g' '^ugit status\n'
+bindkey -s '^s' '^ugit status^M'
+# Move through suggestions with up and down keys
+bindkey '^k' history-beginning-search-backward
+bindkey '^j' history-beginning-search-forward
 
-setopt autocd		# Automatically cd into typed directory.
-stty stop undef		# Disable ctrl-s to freeze terminal.
+setopt autocd           # Automatically cd into typed directory.
+stty stop undef         # Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
 # Basic auto/tab complete:
@@ -167,6 +189,13 @@ source /usr/share/nvm/install-nvm-exec
 # FINAL STEPS
 #
 
-# Load syntax highlighting
+# SDKMAN
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Fish-like autosuggestions
+# https://github.com/zsh-users/zsh-autosuggestions
+# source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Syntax highlighting
 # The repo: https://github.com/zdharma/fast-syntax-highlighting
 source /usr/share/zsh/plugins/fast-syntax-highlighting/F-Sy-H.plugin.zsh 2>/dev/null
