@@ -132,15 +132,6 @@ function qrshow {
     qrencode -o - "$1" | feh -
 }
 
-fzf-content() {
-    # local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
-    # local INITIAL_QUERY=""
-    # local FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'"
-    # FZF_RESULT="$(fzf --delimiter=':' --bind "change:reload:$RG_PREFIX {q} || true" --ansi --disabled --query "$INITIAL_QUERY")"
-    # TODO
-    # rg --line-number "$1" | fzf --delimiter=':' -n 2.. --preview-window '+{2}-/2' --preview 'clp -h {2} {1}' --bind 'ctrl-o:execute(hx {1})'
-}
-
 # Use lf to switch directories
 lfcd () {
     tmp="$(mktemp -uq)"
