@@ -11,6 +11,9 @@
 # GPG-agent
 export GPG_TTY="$(tty)"
 
+# FNM, the fast Node version manager
+eval "$(fnm env --use-on-cd)"
+
 #
 # History settings
 #
@@ -199,11 +202,6 @@ _comp_options+=(globdots)
 # Configure akward commands that are akward
 # because they must be sourced here
 #
-
-# nvm, the Nodejs version manager
-# WARNING: ~200ms slow
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # Docker desktop
 source ~/.docker/init-zsh.sh || true
