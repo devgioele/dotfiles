@@ -194,9 +194,6 @@ _comp_options+=(globdots)
 # because they must be sourced here
 #
 
-# Docker desktop
-source ~/.docker/init-zsh.sh || true
-
 # FINAL STEPS
 #
 
