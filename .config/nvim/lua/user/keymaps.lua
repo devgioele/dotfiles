@@ -13,8 +13,8 @@ vim.keymap.set('v', '>', '>gv')
 
 -- Maintain cursor position when yanking a visual selection
 -- Set a mark, yank, move back to the mark
--- vim.keymap.set('v', 'y', 'myy`y')
--- vim.keymap.set('v', 'y', 'myY`y')
+-- vim.keymap.set('v', 'y', 'mjy`j')
+-- vim.keymap.set('v', 'y', 'mjY`j')
 
 -- Quickly yank to and paste from system clipboard
 vim.keymap.set({'n', 'v'}, '<Leader>y', '"+y')
