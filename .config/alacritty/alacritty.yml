@@ -62,7 +62,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  #decorations: full
+  decorations: buttonless
 
   # Background opacity
   #
@@ -771,8 +771,8 @@ key_bindings:
   - { key: Return, mods: Control|Shift, action: CreateNewWindow }
   - { key: Space, mods: Command, action: ToggleViMode }
   - { key: Back, mods: Control, chars: "\x15" }
-  - { key: Plus, mods: Command, action: IncreaseFontSize } 
-  - { key: Minus, mods: Command, action: DecreaseFontSize } 
+  - { key: Plus, mods: Command, action: IncreaseFontSize }
+  - { key: Minus, mods: Command, action: DecreaseFontSize }
   # Specify chars, because the original ones could not be figured out
   # - { key: E, mods: Control|Shift, chars: "\x1b[5;2~" }
   #- { key: Back,      mods: Control,                    chars: "\x1b\x7f"     }
