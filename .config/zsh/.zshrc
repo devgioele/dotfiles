@@ -82,6 +82,9 @@ function gitbc {
 }
 alias ghpr="gh pr create -a '@me'"
 alias cdfzf='cd "$(dirname "$(fzf)")"'
+alias start-nginx-php="sudo rc-service nginx start && sudo rc-service php-fpm start"
+alias stop-nginx-php="sudo rc-service nginx stop && sudo rc-service php-fpm stop"
+alias colorpicker="hyprpicker"
 
 function timer {
     if [ -z "$1" ]
@@ -175,19 +178,11 @@ compinit
 _comp_options+=(globdots)
 
 #
-# Configure akward commands that are akward
-# because they must be sourced here
-#
-
-# nvm, the Nodejs version manager
-# WARNING: ~200ms slow
-source /usr/share/nvm/nvm.sh
-source /usr/share/nvm/bash_completion
-source /usr/share/nvm/install-nvm-exec
-
-#
 # FINAL STEPS
 #
+
+# FNM, the fast Node.js manager
+eval "$(fnm env --use-on-cd)"
 
 # SDKMAN
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
