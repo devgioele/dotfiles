@@ -1,8 +1,9 @@
-.cache
-AUR
-media
-code
-.local/share
-.librewolf
-.vscode-oss
-downloads
+*
+!.gitignore
+!.config
+!.gitconfig
+!.gnupg
+!.local/bin
+!.zprofile
+!LICENSE
+!README.md
