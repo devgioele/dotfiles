@@ -1,9 +1,10 @@
-*
+/*
+
 !.gitignore
-!.config
+!.config/*
 !.gitconfig
-!.gnupg
-!.local/bin
+!.gnupg/*
+!.local/bin/*
 !.zprofile
 !LICENSE
 !README.md
