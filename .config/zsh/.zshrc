@@ -1,8 +1,6 @@
 #
 # ~/.zshrc
 #
-# - Inspired by https://github.com/LukeSmithxyz/voidrice
-#
 
 #
 # Env vars required for interactivity
@@ -35,6 +33,12 @@ setopt globdots
 # For xterm-256 colors:
 # https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 PROMPT='%F{069}%n%f%F{11}@%f%F{069}%M%f%F{11}:%f%F{7}%~%f%F{11}>%f '
+
+# Colors for zsh-autosuggestions
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=2'
+# export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#f1d687'
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
+# export ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
 #
 #
@@ -187,10 +191,11 @@ eval "$(fnm env --use-on-cd)"
 # SDKMAN
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# Fish-like autosuggestions
-# https://github.com/zsh-users/zsh-autosuggestions
-# source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# fish-like autosuggestions
+# Repo: https://github.com/zsh-users/zsh-autosuggestions
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax highlighting
-# The repo: https://github.com/zdharma/fast-syntax-highlighting
-source /usr/share/zsh/plugins/fast-syntax-highlighting/F-Sy-H.plugin.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh # 2>/dev/null
+# Prevent comments (strings starting with a '#') from being invisible
+ZSH_HIGHLIGHT_STYLES[comment]='fg=8,bold'
