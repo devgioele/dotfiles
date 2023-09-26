@@ -4,7 +4,7 @@
 application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
 application/x-mozilla-bookmarks=librewolf.desktop;
 image/*=feh.desktop;
-text/*=helix.desktop;
+text/*=nvim.desktop;
 text/html=librewolf.desktop;
 x-scheme-handler/about=librewolf.desktop;
 x-scheme-handler/http=librewolf.desktop;
