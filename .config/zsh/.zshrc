@@ -95,6 +95,7 @@ alias rss="newsboat"
 alias yt-channel-id="pipe-viewer --no-interactive --extract '*CHANNELID*'"
 alias metadata="exiv2"
 alias fzf="fzf --bind=tab:down,btab:up"
+# Git
 alias gitc="git checkout"
 alias gitd="git diff --color-words"
 alias gitdl="git diff"
@@ -103,6 +104,10 @@ alias gitb="git branch"
 function gitbc {
     git branch $1 && git checkout $1
 }
+alias gitps="git push"
+alias gitpl="git pull"
+# GitHub
+alias ghpr="gh pr create -a '@me'"
 alias ghpr="gh pr create -a '@me'"
 alias docker-psql-app="docker-compose exec postgres psql app -x"
 alias cdfzf='cd "$(dirname "$(fzf)")"'
@@ -160,6 +165,9 @@ replace-with () {
 #
 # See `man zshzle`
 
+# Move through history with up and down keys
+bindkey '^k' history-beginning-search-backward
+bindkey '^j' history-beginning-search-forward
 # cd using lf
 bindkey -s '^o' '^ulfcd^M'
 # bc, the arbitrary precision calculator, but with the mathlib and quiet
@@ -168,12 +176,10 @@ bindkey -s '^a' '^ubc -lq^M'
 bindkey -s '^f' '^unvim -c "Telescope find_files"^M'
 # open with nvim, search by file content
 bindkey -s '^g' '^unvim -c "Telescope live_grep"^M'
+# Git
 bindkey -s '^s' '^ugit status^M'
 # lazygit
 bindkey -s '^x' '^ulazygit^M'
-# Move through history with up and down keys
-bindkey '^k' history-beginning-search-backward
-bindkey '^j' history-beginning-search-forward
 
 setopt autocd           # Automatically cd into typed directory.
 stty stop undef         # Disable ctrl-s to freeze terminal.
