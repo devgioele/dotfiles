@@ -13,3 +13,4 @@ map gg top
 map ge bottom
 map x cut
 map s toggle
+map . set hidden!
