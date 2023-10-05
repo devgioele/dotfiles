@@ -168,8 +168,7 @@ bindkey -s '^a' '^ubc -lq^M'
 bindkey -s '^f' '^unvim -c "Telescope find_files"^M'
 # open with nvim, search by file content
 bindkey -s '^g' '^unvim -c "Telescope live_grep"^M'
-# search file and cd into its parent directory
-bindkey -s '^s' '^ucdfzf^M'
+bindkey -s '^s' '^ugit status^M'
 # lazygit
 bindkey -s '^x' '^ulazygit^M'
 # Move through history with up and down keys
