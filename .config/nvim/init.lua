@@ -16,7 +16,19 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {
   install = {
-    -- try to load one of these colorschemes when starting an installation during startup
+    missing = true,
+    -- Try to load one of these colorschemes when starting an installation during startup
     colorscheme = { "tokyonight", "habamax" },
-  }
+  },
+  checker = {
+    -- Automatically check for plugin updates
+    enabled = true,
+    concurrency = nil,
+    notify = false,
+    frequency = 3600,
+  },
+  change_detection = {
+    enabled = true,
+    notify = false,
+  },
 })
