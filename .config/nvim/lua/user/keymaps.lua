@@ -4,8 +4,8 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Move by terminal rows, not lines, unless a vertical count is provided
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true})
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true})
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- Reselect visual selection after indenting
 vim.keymap.set('v', '<', '<gv')
@@ -13,13 +13,13 @@ vim.keymap.set('v', '>', '>gv')
 
 -- Maintain cursor position when yanking a visual selection
 -- Set a mark, yank, move back to the mark
--- vim.keymap.set('v', 'y', 'mjy`j')
--- vim.keymap.set('v', 'y', 'mjY`j')
+vim.keymap.set('v', 'y', 'myy`y')
+vim.keymap.set('v', 'Y', 'myY`y')
 
 -- Quickly yank to and paste from system clipboard
-vim.keymap.set({'n', 'v'}, '<Leader>y', '"+y')
-vim.keymap.set('n', '<Leader>p', '"+p')
-vim.keymap.set('n', '<Leader>P', '"+P')
+vim.keymap.set({ 'n', 'v' }, '<Leader>y', '"+y')
+vim.keymap.set({ 'n', 'v' }, '<Leader>p', '"+p')
+vim.keymap.set({ 'n', 'v' }, '<Leader>P', '"+P')
 
 -- Quickly clear search highlighting
 vim.keymap.set('n', '<Leader>/', ':nohlsearch<CR>')
