@@ -603,7 +603,7 @@ return {
             if formattable_with_prettier() then
               -- TODO: Start undoblock
               local cursor_pos = vim.api.nvim_win_get_cursor(0)
-              vim.cmd("%:!prettierd --stdin-filepath %")
+              vim.cmd("%:!prettierd --stdin-filepath '%'")
               vim.api.nvim_win_set_cursor(0, cursor_pos)
               -- TODO: End undoblock
             else
