@@ -204,5 +204,6 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh # 2>/dev/null
+
 # Prevent comments (strings starting with a '#') from being invisible
 ZSH_HIGHLIGHT_STYLES[comment]='fg=8,bold'
