@@ -583,39 +583,65 @@ return {
           lint.try_lint()
         end,
       })
+    end
+  },
 
-      -- Formatting
-      local filetypes_prettier = { 'html', 'css', 'typescript', 'javascript', 'javascriptreact', 'javascript.jsx',
-        'typescriptreact', 'typescript.tsx', 'astro', 'svelte' }
-      local function formattable_with_prettier()
-        for index, value in ipairs(filetypes_prettier) do
-          if value == vim.bo.filetype then
-            return true
-          end
-        end
-        return false
+  {
+    'mhartington/formatter.nvim',
+    config = function()
+      local util = require("formatter.util")
+      local prettier = function()
+        return {
+          exe = "prettierd",
+          args = { util.escape_path(util.get_current_buffer_file_path()) },
+          stdin = true,
+        }
       end
+      -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
+      require("formatter").setup {
+        logging = true,
+        log_level = vim.log.levels.WARN,
+        filetype = {
+          html = {
+            prettier
+          },
+          css = {
+            prettier
+          },
+          typescript = {
+            prettier
+          },
+          javascript = {
+            prettier
+          },
+          javascriptreact = {
+            prettier
+          },
+          ['javascript.jsx'] = {
+            prettier
+          },
+          typescriptreact = {
+            prettier
+          },
+          ['typescript.tsx'] = {
+            prettier
+          },
+          ["*"] = {
+            require("formatter.filetypes.any").remove_trailing_whitespace
+          }
+        }
+      }
       local formatting_enabled = true
       vim.api.nvim_create_autocmd("BufWritePre", {
         callback = function()
           if formatting_enabled then
-            -- Format using prettier or LSP
-            if formattable_with_prettier() then
-              -- TODO: Start undoblock
-              local cursor_pos = vim.api.nvim_win_get_cursor(0)
-              vim.cmd("%:!prettierd --stdin-filepath '%'")
-              vim.api.nvim_win_set_cursor(0, cursor_pos)
-              -- TODO: End undoblock
-            else
-              vim.lsp.buf.format()
-            end
+            vim.cmd(':FormatWrite')
           end
         end
       })
-      -- Commands
       vim.api.nvim_create_user_command('InvFormat', function()
         formatting_enabled = not formatting_enabled
       end, {})
     end
-  },
+  }
 }
