@@ -1,8 +1,6 @@
 #
 # ~/.zshrc
 #
-# - Inspired by https://github.com/LukeSmithxyz/voidrice
-#
 
 #
 # Env vars required for interactivity
@@ -208,9 +206,11 @@ _comp_options+=(globdots)
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # Fish-like autosuggestions
-# https://github.com/zsh-users/zsh-autosuggestions
+# Repo: https://github.com/zsh-users/zsh-autosuggestions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax highlighting
 # The repo: https://github.com/zdharma/fast-syntax-highlighting
-source ~/.local/share/fast-syntax-highlighting/F-Sy-H.plugin.zsh 2>/dev/null
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Prevent comments (strings starting with a '#') from being invisible
+ZSH_HIGHLIGHT_STYLES[comment]='fg=8,bold'
