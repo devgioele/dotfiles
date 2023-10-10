@@ -546,11 +546,9 @@ return {
     end
   },
 
-  -- Linting & Formatting
   {
     'mfussenegger/nvim-lint',
     config = function()
-      -- Linting
       local lint = require('lint')
       lint.linters_by_ft = {
         html = {
@@ -598,50 +596,61 @@ return {
         }
       end
       -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
+      local filetype = {
+        html = {
+          prettier
+        },
+        css = {
+          prettier
+        },
+        typescript = {
+          prettier
+        },
+        javascript = {
+          prettier
+        },
+        javascriptreact = {
+          prettier
+        },
+        ['javascript.jsx'] = {
+          prettier
+        },
+        typescriptreact = {
+          prettier
+        },
+        ['typescript.tsx'] = {
+          prettier
+        },
+        ["*"] = {
+          require("formatter.filetypes.any").remove_trailing_whitespace
+        }
+      }
       require("formatter").setup {
         logging = true,
         log_level = vim.log.levels.WARN,
-        filetype = {
-          html = {
-            prettier
-          },
-          css = {
-            prettier
-          },
-          typescript = {
-            prettier
-          },
-          javascript = {
-            prettier
-          },
-          javascriptreact = {
-            prettier
-          },
-          ['javascript.jsx'] = {
-            prettier
-          },
-          typescriptreact = {
-            prettier
-          },
-          ['typescript.tsx'] = {
-            prettier
-          },
-          ["*"] = {
-            require("formatter.filetypes.any").remove_trailing_whitespace
-          }
-        }
+        filetype = filetype
       }
       local formatting_enabled = true
-      vim.api.nvim_create_autocmd("BufWritePre", {
+      local format = function()
+        if filetype[vim.bo.filetype] ~= nil then
+          vim.cmd(':FormatWrite')
+        else
+          vim.lsp.buf.format()
+        end
+      end
+      vim.api.nvim_create_autocmd("BufWritePost", {
         callback = function()
           if formatting_enabled then
-            vim.cmd(':FormatWrite')
+            format()
           end
         end
       })
       vim.api.nvim_create_user_command('InvFormat', function()
         formatting_enabled = not formatting_enabled
       end, {})
+      vim.keymap.set('n', '<leader>e', function()
+        format()
+      end)
     end
   }
 }
