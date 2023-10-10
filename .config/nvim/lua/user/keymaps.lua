@@ -47,3 +47,11 @@ vim.keymap.set('n', ']q', ':cnext<CR>')
 
 -- Allow gf to open non-existent files
 -- vim.keymap.set('n', 'gf', ':edit <cfile><CR>')
+
+-- Make carriage return (enter) accept the suggested command without executing it
+vim.keymap.set('c', '<cr>', function ()
+  if vim.fn.pumvisible() == 1 then
+    return '<c-y>'
+  else return '<cr>'
+  end
+end, {expr = true})
