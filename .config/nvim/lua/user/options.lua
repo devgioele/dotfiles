@@ -1,5 +1,5 @@
 -- Allow backspace to go through the following
-vim.opt.backspace = 'indent,eol,start'
+ vim.opt.backspace = 'indent,eol,start'
 
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -75,7 +75,6 @@ vim.opt.backupdir:remove('.')
 -- We put this in an autocmd, because the internal ftplugin of neovim overwrites the formatoptions on each BufEnter event
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   callback = function()
-    vim.opt.formatoptions:remove('c')
     vim.opt.formatoptions:remove('r')
     vim.opt.formatoptions:remove('o')
   end,
