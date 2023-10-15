@@ -1,3 +1,8 @@
+-- TODO:
+-- - Way of transforming a list of equal numbers to a list of ascending numbers
+-- - Add a query for treesitter so that `dcss` deletes a css class. There might be a space before or after the css class that must be removed. For both left and right, there is a quote or a space. If there is a space, remove it. If there is space both left and right, remove only one of the two. https://github.com/nvim-treesitter/nvim-treesitter#adding-queries
+-- - Add folke/trouble.nvim and make the workspace diagnostics work with eslint and typescript https://github.com/folke/trouble.nvim
+
 return {
   {
     "folke/tokyonight.nvim",
@@ -29,6 +34,12 @@ return {
 
   -- Commentary support
   "tpope/vim-commentary",
+
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {}
+  },
 
   -- Surroundings utils
   "tpope/vim-surround",
@@ -118,45 +129,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring',
-      'nvim-treesitter/nvim-treesitter-textobjects'
+      'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ":TSUpdate",
-    config = function()
-      local configs = require("nvim-treesitter.configs")
-      configs.setup {
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "typescript", "html", "css", "go",
-          "astro", "svelte", "tsx" },
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-          enable = true,
-          disable = function(lang, buf)
-            local max_filesize = 100 * 1024 -- 100 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-        },
-        context_commentstring = {
-          enable = true,
-        },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ['if'] = '@function.inner',
-              ['af'] = '@function.outer',
-              ['ia'] = '@parameter.inner',
-              ['aa'] = '@parameter.outer',
-              ['ic'] = '@class.inner',
-              ['ac'] = '@class.outer',
-            },
-          }
-        }
-      }
-    end
   },
 
 
@@ -173,7 +148,11 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-    opts = {}
+    opts = {
+      autotag = {
+        enable_close_on_slash = false
+      }
+    }
   },
 
   -- Fuzzy finder over lists
@@ -262,28 +241,18 @@ return {
           }
         },
       }
-      require('telescope').load_extension('fzf')
-      require('telescope').load_extension('live_grep_args')
-      require('telescope').load_extension('ui-select')
-
-      -- Hightlight groups
-      -- vim.cmd([[
-      --   highlight link TelescopePromptTitle PMenuSel
-      --   highlight link TelescopePreviewTitle PMenuSel
-      --   highlight link TelescopePromptNormal NormalFloat
-      --   highlight link TelescopePromptBorder FloatBorder
-      --   highlight link TelescopeNormal CursorLine
-      --   highlight link TelescopeBorder CursorLineBg
-      -- ]])
+      pcall(require('telescope').load_extension, 'fzf')
+      pcall(require('telescope').load_extension, 'live_grep_args')
+      pcall(require('telescope').load_extension, 'ui-select')
 
       -- Keymaps
-      vim.keymap.set('n', '<leader>f', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
+      vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files)
       vim.keymap.set('n', '<leader>F',
-        [[<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' })<CR>]])
-      vim.keymap.set('n', '<leader>b', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
-      vim.keymap.set('n', '<leader>g', [[<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>]])
-      vim.keymap.set('n', '<leader>h', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
-      vim.keymap.set('n', '<leader>s', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
+        function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' }) end)
+      vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers)
+      vim.keymap.set('n', '<leader>g', require('telescope').extensions.live_grep_args.live_grep_args)
+      vim.keymap.set('n', '<leader>h', require('telescope.builtin').oldfiles)
+      vim.keymap.set('n', '<leader>s', require('telescope.builtin').lsp_document_symbols)
     end
   },
 
@@ -303,17 +272,6 @@ return {
   {
     'williamboman/mason.nvim',
     opts = {}
-  },
-
-  -- The bridge between mason and lspconfig
-  {
-    'williamboman/mason-lspconfig.nvim',
-    dependencies = {
-      'williamboman/mason.nvim',
-    },
-    opts = {
-      automatic_installation = true
-    }
   },
 
   -- Snippets plugin
@@ -358,57 +316,6 @@ return {
       -- Snippets plugin
       'L3MON4D3/LuaSnip'
     },
-    config = function()
-      local luasnip = require('luasnip')
-      local lspkind = require('lspkind')
-      local cmp = require('cmp')
-      cmp.setup {
-        preselect = cmp.PreselectMode.None,
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        formatting = {
-          format = lspkind.cmp_format()
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
-          -- C-b (back) C-f (forward) for snippet placeholder navigation.
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm {
-            select = false,
-          },
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-        }),
-        sources = {
-          { name = 'nvim_lsp' },
-          { name = 'nvim_lsp_signature_help' },
-          { name = 'luasnip' },
-          { name = 'buffer' },
-          { name = 'path' },
-          { name = 'npm',                    keyword_length = 4 }
-        },
-      }
-    end
   },
 
   -- Configurations for the built-in LSP client
@@ -419,136 +326,11 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'b0o/schemastore.nvim',
       'hrsh7th/nvim-cmp',
+      -- Additional lua configuration, makes nvim stuff amazing!
+      'folke/neodev.nvim',
+      -- Useful status updates for LSP
+      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
     },
-    config = function()
-      -- Add additional capabilities supported by nvim-cmp
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lspconfig = require('lspconfig')
-      lspconfig.lua_ls.setup {
-        on_init = function(client)
-          local path = client.workspace_folders[1].name
-          if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-            client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-              Lua = {
-                runtime = {
-                  -- Tell the language server which version of Lua you're using
-                  -- (most likely LuaJIT in the case of Neovim)
-                  version = 'LuaJIT'
-                },
-                -- Make the server aware of Neovim runtime files
-                workspace = {
-                  checkThirdParty = false,
-                  library = {
-                    vim.env.VIMRUNTIME
-                    -- "${3rd}/luv/library"
-                    -- "${3rd}/busted/library",
-                  }
-                  -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                  -- library = vim.api.nvim_get_runtime_file("", true)
-                }
-              }
-            })
-            client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-          end
-          return true
-        end
-      }
-      lspconfig.marksman.setup {
-        capabilities = capabilities
-      }
-      lspconfig.volar.setup {
-        capabilities = capabilities,
-        -- Enable "Take Over Mode" to use volar not just for vue
-        filetypes = { 'html', 'css', 'typescript', 'javascript', 'javascriptreact', 'javascript.jsx', 'typescriptreact',
-          'typescript.tsx', 'astro', 'svelte' }
-      }
-      lspconfig.tailwindcss.setup {
-        capabilities = capabilities
-      }
-      lspconfig.unocss.setup {
-        capabilities = capabilities
-      }
-      lspconfig.jsonls.setup {
-        capabilities = capabilities,
-        settings = {
-          json = {
-            schemas = require('schemastore').json.schemas(),
-            validate = { enable = true },
-          },
-        },
-      }
-      lspconfig.yamlls.setup {
-        capabilities = capabilities,
-        settings = {
-          yaml = {
-            schemaStore = {
-              -- You must disable built-in schemaStore support if you want to use
-              -- this plugin and its advanced options like `ignore`.
-              enable = false,
-              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-              url = "",
-            },
-            schemas = require('schemastore').yaml.schemas(),
-          },
-        },
-      }
-      lspconfig.arduino_language_server.setup {
-        capabilities = capabilities
-      }
-      lspconfig.clangd.setup {
-        capabilities = capabilities
-      }
-      lspconfig.cmake.setup {
-        capabilities = capabilities
-      }
-      lspconfig.rust_analyzer.setup {
-        capabilities = capabilities
-      }
-      lspconfig.svelte.setup {
-        capabilities = capabilities
-      }
-      -- The Java language server of Eclipse
-      lspconfig.jdtls.setup {
-        capabilities = capabilities
-      }
-      -- Python
-      lspconfig.jedi_language_server.setup {
-        capabilities = capabilities
-      }
-      -- Go
-      lspconfig.gopls.setup {
-        capabilities = capabilities
-      }
-
-      -- Keymaps
-      vim.keymap.set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
-      vim.keymap.set('n', '<Leader>D', ':Telescope diagnostics<CR>')
-      vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-      vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-      vim.keymap.set('n', 'gd', ':Telescope lsp_definitions<CR>')
-      vim.keymap.set('n', 'gi', ':Telescope lsp_implementations<CR>')
-      vim.keymap.set('n', 'gt', ':Telescope lsp_type_definitions<CR>')
-      vim.keymap.set('n', 'gr', ':Telescope lsp_references<CR>')
-      vim.keymap.set('n', '<Leader>k', '<cmd>lua vim.lsp.buf.hover()<CR>')
-      vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-      vim.keymap.set('n', '<Leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-      vim.keymap.set('n', "<Leader>'", ':Telescope resume<CR>')
-      vim.keymap.set('n', '<Leader>"', ':Telescope pickers<CR>')
-
-      -- Diagnostic configuration
-      vim.diagnostic.config({
-        virtual_text = false,
-        float = {
-          source = true,
-        }
-      })
-
-      -- Sign configuration
-      vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
-      vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
-      vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
-      vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
-    end
   },
 
   {
@@ -635,27 +417,37 @@ return {
         log_level = vim.log.levels.WARN,
         filetype = filetype
       }
-      local formatting_enabled = true
-      local format = function()
-        if filetype[vim.bo.filetype] ~= nil then
-          vim.cmd(':FormatWrite')
-        else
-          vim.lsp.buf.format()
-        end
-      end
-      vim.api.nvim_create_autocmd("BufWritePost", {
-        callback = function()
-          if formatting_enabled then
-            format()
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+          local formatting_enabled = true
+          local format = function(opts)
+            if filetype[vim.bo.filetype] ~= nil then
+              vim.cmd(':FormatWrite')
+            elseif client.server_capabilities.documentFormattingProvider then
+              vim.lsp.buf.format({ async = opts.async })
+            end
           end
+          vim.api.nvim_create_autocmd("BufWritePost", {
+            callback = function()
+              if formatting_enabled then
+                format { async = false }
+              end
+            end
+          })
+          vim.api.nvim_create_user_command('InvFormat', function()
+            formatting_enabled = not formatting_enabled
+          end, {})
+
+          local nmap = function(keys, func, desc)
+            vim.keymap.set('n', keys, func, { buffer = ev.buf, desc = desc })
+          end
+          nmap('<leader>e', function()
+            format { async = true }
+          end, 'Format docum[e]nt')
         end
       })
-      vim.api.nvim_create_user_command('InvFormat', function()
-        formatting_enabled = not formatting_enabled
-      end, {})
-      vim.keymap.set('n', '<leader>e', function()
-        format()
-      end)
     end
   }
 }
