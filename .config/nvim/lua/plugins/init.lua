@@ -251,7 +251,7 @@ return {
         function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' }) end)
       vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers)
       vim.keymap.set('n', '<leader>g', require('telescope').extensions.live_grep_args.live_grep_args)
-      vim.keymap.set('n', '<leader>h', require('telescope.builtin').oldfiles)
+      vim.keymap.set('n', '<leader>H', require('telescope.builtin').oldfiles)
       vim.keymap.set('n', '<leader>s', require('telescope.builtin').lsp_document_symbols)
     end
   },
