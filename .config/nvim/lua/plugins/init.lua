@@ -363,6 +363,7 @@ return {
       local lspkind = require('lspkind')
       local cmp = require('cmp')
       cmp.setup {
+        preselect = cmp.PreselectMode.None,
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -377,8 +378,7 @@ return {
           -- C-b (back) C-f (forward) for snippet placeholder navigation.
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+            select = false,
           },
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
