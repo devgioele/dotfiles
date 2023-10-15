@@ -109,6 +109,7 @@ alias ghpr="gh pr create -a '@me'"
 alias ghpr="gh pr create -a '@me'"
 alias docker-psql-app="docker-compose exec postgres psql app -x"
 alias cdfzf='cd "$(dirname "$(fzf)")"'
+alias rsyncp="rsync -rlptD --info=progress2"
 
 function timer {
     if [ -z "$1" ]
