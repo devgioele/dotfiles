@@ -19,6 +19,9 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
+# Grim to take screenshots in Wayland
+export GRIM_DEFAULT_DIR="$HOME/media/screenshots"
+
 # Declare the display compositor
 export XDG_CURRENT_DESKTOP="sway"
 
