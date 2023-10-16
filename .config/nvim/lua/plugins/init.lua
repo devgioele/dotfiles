@@ -17,43 +17,57 @@ return {
     end,
   },
 
+  -- Repo: https://github.com/dstein64/vim-startuptime
   {
     "dstein64/vim-startuptime",
+    version = "^4.0.0",
     -- lazy-load on a command
-    cmd  = "StartupTime",
+    cmd     = "StartupTime",
     -- init is called during startup. Configuration for vim plugins typically should be set in an init function
-    init = function()
+    init    = function()
       vim.g.startuptime_tries = 10
     end,
   },
 
   -- Commentary support
-  "tpope/vim-commentary",
+  -- Repo: https://github.com/tpope/vim-commentary
+  {
+    "tpope/vim-commentary",
+  },
 
+  -- Repo: https://github.com/folke/todo-comments.nvim
   {
     "folke/todo-comments.nvim",
+    version = "^1.0.0",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {}
   },
 
   -- Surroundings utils
+  -- Repo: https://github.com/tpope/vim-surround
   "tpope/vim-surround",
 
   -- UNIX helpers
+  -- Repo: https://github.com/tpope/vim-eunuch
   "tpope/vim-eunuch",
 
   -- Create missing parent directories when saving files
+  -- Repo: https://github.com/jessarcher/vim-heritage
   "jessarcher/vim-heritage",
 
   -- Indent autodetection with .editorconfig support
+  -- Repo: https://github.com/tpope/vim-sleuth
   "tpope/vim-sleuth",
 
   -- Shortcuts for word variants
+  -- Repo: https://github.com/tpope/vim-abolish
   "tpope/vim-abolish",
 
   -- Key bindings suggestions
+  -- Repo: https://github.com/folke/which-key.nvim
   {
     "folke/which-key.nvim",
+    version = "^1.0.0",
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
@@ -63,8 +77,10 @@ return {
   },
 
   -- Git commands
+  -- Repo: https://github.com/tpope/vim-fugitive
   "tpope/vim-fugitive",
 
+  -- Repo: https://github.com/lewis6991/gitsigns.nvim
   {
     "lewis6991/gitsigns.nvim",
     opts = {
@@ -120,6 +136,7 @@ return {
   },
 
   -- Treesitter configurations and abstraction layer
+  -- Repo: https://github.com/nvim-treesitter/nvim-treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
@@ -131,6 +148,7 @@ return {
 
 
   -- Automatically add closing brackets, quotes, etc.
+  -- Repo: https://github.com/windwp/nvim-autopairs
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -138,6 +156,7 @@ return {
   },
 
   -- Autoclose and autorename html tags
+  -- Repo: https://github.com/windwp/nvim-ts-autotag
   {
     "windwp/nvim-ts-autotag",
     dependencies = {
@@ -149,6 +168,7 @@ return {
   },
 
   -- Fuzzy finder over lists
+  -- Repo: https://github.com/nvim-telescope/telescope.nvim
   {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
@@ -237,19 +257,23 @@ return {
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'live_grep_args')
       pcall(require('telescope').load_extension, 'ui-select')
-
-      -- Keymaps
-      vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files)
-      vim.keymap.set('n', '<leader>F',
-        function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' }) end)
-      vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers)
-      vim.keymap.set('n', '<leader>g', require('telescope').extensions.live_grep_args.live_grep_args)
-      vim.keymap.set('n', '<leader>H', require('telescope.builtin').oldfiles)
-      vim.keymap.set('n', '<leader>s', require('telescope.builtin').lsp_document_symbols)
+      local nmap = function(keys, func, desc)
+        vim.keymap.set('n', keys, func, { desc = desc })
+      end
+      nmap('<leader>f', require('telescope.builtin').find_files, 'Find workspace files that are not ignored')
+      nmap('<leader>F',
+        function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' }) end,
+        'Find any workspace file')
+      nmap('<leader>b', require('telescope.builtin').buffers, 'List open buffers')
+      nmap('<leader>g', require('telescope').extensions.live_grep_args.live_grep_args, 'Search with [g]rep')
+      nmap('<leader>H', require('telescope.builtin').oldfiles, 'Open the [H]istory of buffers')
+      nmap("<leader>'", require('telescope.builtin').resume, 'Resume telescope session')
+      nmap('<leader>"', require('telescope.builtin').pickers, 'List telescope sessions')
     end
   },
 
   -- Color picker and highlighter
+  -- Repo: https://github.com/uga-rosa/ccc.nvim
   {
     'uga-rosa/ccc.nvim',
     event = "VeryLazy",
@@ -262,33 +286,16 @@ return {
   },
 
   -- The package manager mason
+  -- Repo: https://github.com/williamboman/mason.nvim
   {
     'williamboman/mason.nvim',
-    opts = {}
-  },
-
-  -- Snippets plugin
-  {
-    'L3MON4D3/LuaSnip',
-    version = "v2.*",
-    build = "make install_jsregexp",
-    dependencies = { "rafamadriz/friendly-snippets" },
-    config = function()
-      require('luasnip').setup {}
-      require("luasnip.loaders.from_vscode").lazy_load()
-    end
-  },
-
-  -- nvim-cmp completion source for npm packages
-  {
-    'David-Kunz/cmp-npm',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    ft = "json",
+    version = "^1.0.0",
     opts = {}
   },
 
   -- Completion plugin
   -- NeoVIM does only support on-demand completion. With this plugin we add autocompletion
+  -- Repo: https://github.com/hrsh7th/nvim-cmp
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -305,15 +312,32 @@ return {
       -- Pictograms for LSP completions items
       'onsails/lspkind-nvim',
       -- Completion source for npm packages
-      'David-Kunz/cmp-npm',
+      {
+        'David-Kunz/cmp-npm',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        ft = "json",
+        opts = {}
+      },
       -- Snippets plugin
-      'L3MON4D3/LuaSnip'
+      -- Repo: https://github.com/L3MON4D3/LuaSnip
+      {
+        'L3MON4D3/LuaSnip',
+        version = "^2.0.0",
+        build = "make install_jsregexp",
+        dependencies = { "rafamadriz/friendly-snippets" },
+        config = function()
+          require('luasnip').setup {}
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end
+      },
     },
   },
 
   -- Configurations for the built-in LSP client
+  -- Repo: https://github.com/neovim/nvim-lspconfig
   {
     'neovim/nvim-lspconfig',
+    tag = '0.*',
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
@@ -326,6 +350,7 @@ return {
     },
   },
 
+  -- Repo: https://github.com/mfussenegger/nvim-lint
   {
     'mfussenegger/nvim-lint',
     config = function()
@@ -364,6 +389,7 @@ return {
     end
   },
 
+  -- Repo: https://github.com/mhartington/formatter.nvim
   {
     'mhartington/formatter.nvim',
     config = function()

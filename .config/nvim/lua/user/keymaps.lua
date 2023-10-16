@@ -17,17 +17,17 @@ vim.keymap.set('v', 'y', 'ygv')
 vim.keymap.set('v', 'Y', 'Ygv')
 
 -- Quickly yank to and paste from system clipboard
-vim.keymap.set({ 'n', 'v' }, '<Leader>y', '"+y')
-vim.keymap.set({ 'n', 'v' }, '<Leader>p', '"+p')
-vim.keymap.set({ 'n', 'v' }, '<Leader>P', '"+P')
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
+vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
+vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+P')
 
 -- Quickly clear search highlighting
-vim.keymap.set('n', '<Leader>/', ':nohlsearch<CR>')
+vim.keymap.set('n', '<leader>/', ':nohlsearch<CR>')
 
 -- Open the current file in the default program
-vim.keymap.set('n', '<Leader>xd', ':!open %<CR><CR>')
+vim.keymap.set('n', '<leader>xd', ':!open %<CR><CR>')
 -- Open the current file in Visual Studio Code
-vim.keymap.set('n', '<Leader>xc', string.format(':!code %s %%<CR><CR>', uv.cwd()))
+vim.keymap.set('n', '<leader>xc', string.format(':!code %s %%<CR><CR>', uv.cwd()))
 
 -- Move lines
 vim.keymap.set('i', '<A-j>', '<Esc>:move .+1<CR>==gi')
