@@ -337,7 +337,6 @@ return {
   -- Repo: https://github.com/neovim/nvim-lspconfig
   {
     'neovim/nvim-lspconfig',
-    tag = '0.*',
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
