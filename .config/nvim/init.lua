@@ -95,21 +95,19 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<Leader>d', vim.diagnostic.open_float)
-  nmap('<Leader>D', require('telescope.builtin').diagnostics)
-  nmap('[d', vim.diagnostic.goto_prev)
-  nmap(']d', vim.diagnostic.goto_next)
+  nmap('<leader>d', vim.diagnostic.open_float, 'Open [d]iagnostics of current line')
+  nmap('<leader>D', require('telescope.builtin').diagnostics, 'Open [D]iagnostics of workspace')
+  nmap('[d', vim.diagnostic.goto_prev, 'Goto previous diagnostic inside file')
+  nmap(']d', vim.diagnostic.goto_next, 'Goto next diagnostic inside file')
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('gt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('<Leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<Leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-  nmap('<Leader>k', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<Leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<Leader>a', vim.lsp.buf.code_action, 'Code [A]ction')
-  nmap("<Leader>'", require('telescope.builtin').resume, 'Resume telescope')
-  nmap('<Leader>"', require('telescope.builtin').pickers, 'Telescope pickers')
+  nmap('<leader>s', require('telescope.builtin').lsp_document_symbols, 'Open the document [s]ymbols')
+  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>k', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>a', vim.lsp.buf.code_action, 'Code [A]ction')
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
@@ -228,25 +226,6 @@ vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSig
 vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(ev)
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', '<Leader>d', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', '<Leader>D', ':Telescope diagnostics<CR>', opts)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', 'gd', ':Telescope lsp_definitions<CR>', opts)
-    vim.keymap.set('n', 'gi', ':Telescope lsp_implementations<CR>', opts)
-    vim.keymap.set('n', 'gt', ':Telescope lsp_type_definitions<CR>', opts)
-    vim.keymap.set('n', 'gr', ':Telescope lsp_references<CR>', opts)
-    vim.keymap.set('n', '<Leader>k', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', "<Leader>'", ':Telescope resume<CR>', opts)
-    vim.keymap.set('n', '<Leader>"', ':Telescope pickers<CR>', opts)
-  end
-})
-
 -- [[ Configure nvim-cmp ]]
 local cmp = require('cmp')
 local luasnip = require('luasnip')
@@ -255,7 +234,7 @@ luasnip.config.setup {}
 local lspkind = require('lspkind')
 
 cmp.setup {
-        preselect = cmp.PreselectMode.None,
+  preselect = cmp.PreselectMode.None,
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -269,9 +248,9 @@ cmp.setup {
     ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
     -- C-b (back) C-f (forward) for snippet placeholder navigation.
     ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm {
-            select = false,
-          },
+    ['<CR>'] = cmp.mapping.confirm {
+      select = false,
+    },
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
