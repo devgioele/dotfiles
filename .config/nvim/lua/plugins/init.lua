@@ -1,8 +1,3 @@
--- TODO:
--- - Way of transforming a list of equal numbers to a list of ascending numbers
--- - Add a query for treesitter so that `dcss` deletes a css class. There might be a space before or after the css class that must be removed. For both left and right, there is a quote or a space. If there is a space, remove it. If there is space both left and right, remove only one of the two. https://github.com/nvim-treesitter/nvim-treesitter#adding-queries
--- - Add folke/trouble.nvim and make the workspace diagnostics work with eslint and typescript https://github.com/folke/trouble.nvim
-
 return {
   {
     "folke/tokyonight.nvim",
@@ -149,9 +144,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     opts = {
-      autotag = {
-        enable_close_on_slash = false
-      }
+      enable_close_on_slash = false
     }
   },
 

@@ -1,3 +1,13 @@
+-- TODO:
+-- - Way of transforming a list of equal numbers to a list of ascending numbers
+-- - Add a query for treesitter so that `dcss` deletes a css class. There might be a space before or after the css class that must be removed. For both left and right, there is a quote or a space. If there is a space, remove it. If there is space both left and right, remove only one of the two. https://github.com/nvim-treesitter/nvim-treesitter#adding-queries
+-- - Add folke/trouble.nvim and make the workspace diagnostics work with eslint and typescript https://github.com/folke/trouble.nvim
+-- - Tell LSP servers that a file is created, deleted or moved, so that I do not have to run `LspStart` or `LspRestart` each time. A.k.a. code refactoring
+-- - Workspace-wide diagnostics. Look into the plugin 'trouble'
+-- - Master jumplists
+-- - Plugin to interact with the PostgreSQL 'psql'?
+
+
 require('user/options')
 require('user/keymaps')
 
@@ -116,11 +126,15 @@ end
 require('mason').setup()
 require('mason-lspconfig').setup()
 
+local lspconfig_util = require('lspconfig.util')
+-- See the defaults at the nvim-lspconfig repo: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local servers = {
   lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false }
+    settings = {
+      Lua = {
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false }
+      }
     }
   },
   marksman = {},
@@ -128,10 +142,17 @@ local servers = {
     -- Enable "Take Over Mode" to use volar not just for vue
     filetypes = { 'html', 'css', 'typescript', 'javascript', 'javascriptreact', 'javascript.jsx',
       'typescriptreact',
-      'typescript.tsx', 'astro', 'svelte' }
+      'typescript.tsx', 'svelte' }
   },
-  tailwindcss = {},
-  unocss = {},
+  astro = {},
+  tailwindcss = {
+    root_dir = lspconfig_util.root_pattern('tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.mjs',
+      'tailwind.config.ts', 'postcss.config.js', 'postcss.config.cjs', 'postcss.config.mjs', 'postcss.config.ts')
+  },
+  unocss = {
+    filetypes = { "html", "javascriptreact", "rescript", "typescriptreact", "vue", "svelte", "astro" },
+    root_dir = lspconfig_util.root_pattern('unocss.config.js', 'unocss.config.ts', 'uno.config.js', 'uno.config.ts')
+  },
   jsonls = {
     settings = {
       json = {
@@ -164,7 +185,8 @@ local servers = {
   -- Python
   jedi_language_server = {},
   -- Go
-  gopls = {}
+  gopls = {},
+  bashls = {}
 }
 
 -- Setup neovim lua configuration
@@ -185,8 +207,9 @@ mason_lspconfig.setup_handlers {
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = servers[server_name],
+      settings = (servers[server_name] or {}).settings,
       filetypes = (servers[server_name] or {}).filetypes,
+      root_dir = (servers[server_name] or {}).root_dir,
     }
   end,
 }
@@ -269,7 +292,7 @@ cmp.setup {
     end, { 'i', 's' }),
   }),
   sources = {
-    { name = 'nvim_lsp' },
+    { name = 'nvim_lsp',               trigger_characters = { '-' } },
     { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'buffer' },
