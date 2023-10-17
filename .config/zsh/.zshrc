@@ -95,6 +95,21 @@ alias start-nginx-php="sudo rc-service nginx start && sudo rc-service php-fpm st
 alias stop-nginx-php="sudo rc-service nginx stop && sudo rc-service php-fpm stop"
 alias colorpicker="hyprpicker"
 alias rsyncp="rsync -rlptD --info=progress2"
+function countfiles {
+    if [ "$1" = "-r" ]
+    then
+        MAXDEPTH_ARG=()
+        DIR="$2"
+    elif [ "$2" = "-r" ]
+    then
+        MAXDEPTH_ARG=()
+        DIR="$1"
+    else
+        MAXDEPTH_ARG=(-maxdepth 1)
+        DIR="$1"
+    fi
+    find $DIR $MAXDEPTH_ARG -type f | wc -l
+}
 
 function timer {
     if [ -z "$1" ]
