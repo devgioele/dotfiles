@@ -6,6 +6,8 @@
 -- - Workspace-wide diagnostics. Look into the plugin 'trouble'
 -- - Master jumplists
 -- - Plugin to interact with the PostgreSQL 'psql'?
+-- - Show autosuggestions after '.' is inserted. Showing them once the first character after '.' is pressed, like '.a', is too late to be convenient.
+-- - Do not save telescope sessions used for code actions in the history
 
 
 require('user/options')
@@ -271,7 +273,7 @@ cmp.setup {
     end, { 'i', 's' }),
   }),
   sources = {
-    { name = 'nvim_lsp',               trigger_characters = { '-' } },
+    { name = 'nvim_lsp',               trigger_characters = { '.', '-' } },
     { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'buffer' },
