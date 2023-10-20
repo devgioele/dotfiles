@@ -202,15 +202,17 @@ return {
           mappings = {
             i = {
               ['<ESC>'] = actions.close,
+              ["<C-h>"] = actions.which_key,
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
               ["<C-n>"] = actions.cycle_history_next,
               ["<C-p>"] = actions.cycle_history_prev,
+              ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
             },
           },
           file_ignore_patterns = { '.git/' },
           cache_picker = {
-            num_pickers = 8
+            num_pickers = 10
           }
         },
         pickers = {
