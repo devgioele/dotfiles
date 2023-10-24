@@ -273,7 +273,7 @@ cmp.setup {
     end, { 'i', 's' }),
   }),
   sources = {
-    { name = 'nvim_lsp',               trigger_characters = { '.', '-' } },
+    { name = 'nvim_lsp',               trigger_characters = { '.', '-', '/' } },
     { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'buffer' },
