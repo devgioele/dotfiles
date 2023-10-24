@@ -94,7 +94,7 @@ alias cdfzf='cd "$(dirname "$(fzf)")"'
 alias start-nginx-php="sudo rc-service nginx start && sudo rc-service php-fpm start"
 alias stop-nginx-php="sudo rc-service nginx stop && sudo rc-service php-fpm stop"
 alias colorpicker="hyprpicker"
-alias rsyncp="rsync -rlptD --info=progress2"
+alias rsyncp="rsync --update -rlptD --info=progress2"
 function countfiles {
     if [ "$1" = "-r" ]
     then
