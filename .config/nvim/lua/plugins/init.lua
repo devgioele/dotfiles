@@ -212,10 +212,10 @@ return {
             hidden = true,
           },
           buffers = {
-            previewer = false,
-            layout_config = {
-              width = 80,
-            },
+            -- previewer = false,
+            -- layout_config = {
+            --   width = 80,
+            -- },
           },
           oldfiles = {
             prompt_title = 'History',
