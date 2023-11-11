@@ -778,6 +778,10 @@ colors:
 
 key_bindings:
   - { key: Return,   mods: Control|Shift, action: SpawnNewInstance }
+  - { key: Key0,           mods: Control,                         action: ResetFontSize    }
+  - { key: Equals,         mods: Control,                         action: IncreaseFontSize }
+  - { key: Minus,          mods: Control,                         action: DecreaseFontSize }
+
   #- { key: Back,      mods: Control,                    chars: "\x1b\x7f"     }
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
