@@ -35,14 +35,6 @@ return {
     "tpope/vim-commentary",
   },
 
-  -- Repo: https://github.com/folke/todo-comments.nvim
-  {
-    "folke/todo-comments.nvim",
-    version = "^1.0.0",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {}
-  },
-
   -- Surroundings utils
   -- Repo: https://github.com/tpope/vim-surround
   "tpope/vim-surround",
