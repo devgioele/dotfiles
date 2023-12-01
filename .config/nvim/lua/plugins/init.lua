@@ -390,84 +390,93 @@ return {
     end
   },
 
-  -- Repo: https://github.com/mhartington/formatter.nvim
+  -- Repo: https://github.com/stevearc/conform.nvim
   {
-    'mhartington/formatter.nvim',
+    'stevearc/conform.nvim',
     config = function()
-      local util = require("formatter.util")
-      local prettier = function()
-        return {
-          exe = "prettierd",
-          args = { util.escape_path(util.get_current_buffer_file_path()) },
-          stdin = true,
-        }
-      end
-      -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
-      local filetype = {
-        html = {
-          prettier
+      require('conform').setup({
+        formatters_by_ft = {
+          -- Run eslint_d if available and prettierd if available
+          typescript = {
+            { 'eslint_d', 'prettierd' }
+          },
+          javascript = {
+            { 'eslint_d', 'prettierd' }
+          },
+          javascriptreact = {
+            { 'eslint_d', 'prettierd' }
+          },
+          ['javascript.jsx'] = {
+            { 'eslint_d', 'prettierd' }
+          },
+          typescriptreact = {
+            { 'eslint_d', 'prettierd' }
+          },
+          ['typescript.tsx'] = {
+            { 'eslint_d', 'prettierd' }
+          }
         },
-        css = {
-          prettier
-        },
-        typescript = {
-          prettier
-        },
-        javascript = {
-          prettier
-        },
-        javascriptreact = {
-          prettier
-        },
-        ['javascript.jsx'] = {
-          prettier
-        },
-        typescriptreact = {
-          prettier
-        },
-        ['typescript.tsx'] = {
-          prettier
-        },
-        ["*"] = {
-          require("formatter.filetypes.any").remove_trailing_whitespace
-        }
-      }
-      require("formatter").setup {
-        logging = true,
-        log_level = vim.log.levels.WARN,
-        filetype = filetype
-      }
-      vim.api.nvim_create_autocmd('LspAttach', {
-        callback = function(ev)
-          local client = vim.lsp.get_client_by_id(ev.data.client_id)
-
-          local formatting_enabled = true
-          local format = function(opts)
-            if filetype[vim.bo.filetype] ~= nil then
-              vim.cmd(':FormatWrite')
-            elseif client.server_capabilities.documentFormattingProvider then
-              vim.lsp.buf.format({ async = opts.async })
-            end
+        format_on_save = function(bufnr)
+          -- Disable with a global or buffer-local variable
+          if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+            return
           end
-          vim.api.nvim_create_autocmd("BufWritePost", {
-            callback = function()
-              if formatting_enabled then
-                format { async = false }
-              end
-            end
-          })
-          vim.api.nvim_create_user_command('InvFormat', function()
-            formatting_enabled = not formatting_enabled
-          end, {})
-
-          local nmap = function(keys, func, desc)
-            vim.keymap.set('n', keys, func, { buffer = ev.buf, desc = desc })
-          end
-          nmap('<leader>e', function()
-            format { async = true }
-          end, 'Format docum[e]nt')
+          return { timeout_ms = 500, lsp_fallback = true }
+        end,
+        formatters = {
+          eslint_d = {
+            -- The cwd is where any of the given files are found, starting from the one closest to the open file
+            -- ESLint does also support adding the field 'eslintConfig' to the file 'package.json',
+            -- but we ignore that
+            cwd = require("conform.util").root_file({
+              ".eslintrc.js",
+              ".eslintrc.cjs",
+              ".eslintrc.yaml",
+              ".eslintrc.yml",
+              ".eslintrc.json",
+              "eslint.config.js"
+            }),
+            -- Do not run the formatter if the cwd is not found
+            require_cwd = true
+          },
+          prettierd = {
+            -- Prettier does also support adding the field 'prettier' to the file 'package.json',
+            -- but we ignore that
+            cwd = require("conform.util").root_file({
+              ".prettierrc",
+              ".prettierrc.json",
+              ".prettierrc.yaml",
+              ".prettierrc.yml",
+              ".prettierrc.json5",
+              ".prettierrc.js",
+              "prettier.config.js",
+              ".prettierrc.mjs",
+              "prettier.config.mjs",
+              ".prettierrc.cjs",
+              "prettier.config.cjs",
+              ".prettierrc.toml",
+            }),
+            require_cwd = true
+          }
+        }
+      })
+      vim.api.nvim_create_user_command("FormatDisable", function(args)
+        if args.bang then
+          -- FormatDisable! will disable formatting just for this buffer
+          vim.b.disable_autoformat = true
+        else
+          vim.g.disable_autoformat = true
         end
+      end, {
+        desc = "Disable autoformat-on-save",
+        bang = true,
+      })
+      vim.api.nvim_create_user_command("FormatEnable", function()
+        vim.b.disable_autoformat = false
+        vim.g.disable_autoformat = false
+      end, {
+        desc = "Re-enable autoformat-on-save",
       })
     end
-  }
+  },
 }
