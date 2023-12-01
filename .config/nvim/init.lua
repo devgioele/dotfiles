@@ -68,9 +68,6 @@ vim.defer_fn(function()
       end,
     },
     indent = { enable = true },
-    context_commentstring = {
-      enable = true,
-    },
     textobjects = {
       select = {
         enable = true,
@@ -86,6 +83,8 @@ vim.defer_fn(function()
       }
     }
   }
+  require('ts_context_commentstring').setup {}
+  vim.g.skip_ts_context_commentstring_module = true
 end, 0)
 
 -- [[ Configure LSP ]]
