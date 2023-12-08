@@ -2,7 +2,9 @@
 	email = gioele@devgioele.xyz
 	name = devgioele
 [credential]
-	helper = /usr/bin/pass-git-helper
+	helper = cache
+	; See https://github.com/languitar/pass-git-helper
+	helper = !pass-git-helper $@
 	useHttpPath = true
 [init]
 	defaultBranch = main
@@ -11,8 +13,11 @@
 	hooksPath = .githooks
 [pull]
 	rebase = true
-[credential]
-	helper = 
+[sendemail]
+	smtpserver = smtp.mailbox.org
+	smtpuser = gioele@devgioele.xyz
+	smtpencryption = ssl
+	smtpserverport = 465
 [alias]
     lg = lg1
     lg1 = lg1-specific --all
