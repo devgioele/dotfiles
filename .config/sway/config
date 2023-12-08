@@ -52,7 +52,7 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 input type:keyboard {
 	repeat_delay 250
 	repeat_rate 25
-	xkb_layout "eu,ru"
+	xkb_layout "eu,ro"
     # Make caps like an additional backspace
     xkb_options caps:backspace
 }
