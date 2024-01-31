@@ -1,0 +1,39 @@
+# Unfortunately expansion of env vars is not supported
+[general]
+status_path = "~/.local/state/vdirsyncer/status"
+
+
+
+[storage my_calendars_remote]
+type = "caldav"
+url = "http://192.168.178.60:5232/gio/ed108fcf-1d76-cf46-e645-5b3b10a1fa48/"
+username = "gio"
+password.fetch = ["command", "pass", "Radicale"]
+
+[storage my_calendars_local]
+type = "filesystem"
+path = "~/.local/share/calendars/"
+fileext = ".ics"
+
+[pair my_calendars]
+a = "my_calendars_local"
+b = "my_calendars_remote"
+collections = ["from a", "from b"]
+
+
+
+[storage my_contacts_remote]
+type = "carddav"
+url = "http://192.168.178.60:5232/gio/7ada826d-71e8-4958-a7c2-cf8d2f3d194c/"
+username = "gio"
+password.fetch = ["command", "pass", "Radicale"]
+
+[storage my_contacts_local]
+type = "filesystem"
+path = "~/.local/share/contacts/"
+fileext = ".vcf"
+
+[pair my_contacts]
+a = "my_contacts_local"
+b = "my_contacts_remote"
+collections = ["from a", "from b"]

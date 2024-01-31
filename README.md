@@ -50,6 +50,8 @@ to Sway and eww. Write me for suggestions.
 - RSS/Atom feed reader: [newsboat](https://newsboat.org/)
 - IRC client: [catgirl](https://git.causal.agency/catgirl/about/)
 - Bittorrent client: [transmission-cli](https://transmissionbt.com/)
+- Calendar client: [khal](https://lostpackets.de/khal/index.html)
+- Calendar and contacts synchronizer: [vdirsyncer](https://vdirsyncer.pimutils.org/en/stable/)
 
 ### Password manager
 
@@ -71,3 +73,9 @@ The following fonts give a sufficiently high coverage for everyday needs:
 
 See [a message from your future self](https://github.com/devgioele/dotfiles/blob/zugmaschine/message-from-future-self.md)
 on how to solve common configuration problems.
+
+## New setup proposal
+
+- Alpine Linux instead of Artix Linux.
+- Dwl instead of Sway (test it before committing to it).
+- Some minimalistic status bar (one for dwl if I end up using dwl, or one for sway if otherwise). Don't insist on having a vertical bar this time. Having a horizontal bar is fine for all the technical trouble it saves.

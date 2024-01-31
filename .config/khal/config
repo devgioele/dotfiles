@@ -1,0 +1,16 @@
+[calendars]
+
+[[Personal]]
+path = ~/.local/share/calendars/ed108fcf-1d76-cf46-e645-5b3b10a1fa48/
+color = brown
+type = calendar
+
+[default]
+default_calendar = Personal
+
+[locale]
+timeformat = %H:%M
+dateformat = %d/%m/%Y
+longdateformat = %d/%m/%Y
+datetimeformat = %d/%m/%Y %H:%M
+longdatetimeformat = %d/%m/%Y %H:%M
