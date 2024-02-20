@@ -1,5 +1,5 @@
 -- Allow backspace to go through the following
- vim.opt.backspace = 'indent,eol,start'
+vim.opt.backspace = 'indent,eol,start'
 
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -19,7 +19,7 @@ vim.opt.completeopt = 'menuone,longest,preview'
 
 vim.opt.title = true
 
--- Disable mouse support because unacceptable with WMs that do not have 'Focus Follow Mouse'
+-- Disable mouse support
 vim.opt.mouse = ''
 
 -- Enable true color
@@ -33,7 +33,7 @@ vim.opt.smartcase = true
 
 -- Enable listchars option below
 vim.opt.list = true
-vim.opt.listchars = { tab = '▶ ', trail = '-', extends = '>', precedes = '<', nbsp = '+' }
+vim.opt.listchars = { tab = '  ', trail = '-', extends = '>', precedes = '<', nbsp = '+' }
 -- Remove ~ from the empty buffer
 vim.opt.fillchars:append({ eob = ' ' })
 

@@ -237,6 +237,16 @@ return {
             case_mode = "smart_case",
           },
           live_grep_args = {
+            vimgrep_arguments = {
+              "rg",
+              "--color=never",
+              "--no-heading",
+              "--with-filename",
+              "--line-number",
+              "--column",
+              "--smart-case",
+              "--hidden",
+            },
             mappings = {
               i = {
                 ["<A-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
@@ -348,6 +358,7 @@ return {
     'mfussenegger/nvim-lint',
     config = function()
       local lint = require('lint')
+      -- TODO: Use eslint_d only if the project contains an eslint config
       lint.linters_by_ft = {
         html = {
           'eslint_d'

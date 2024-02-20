@@ -53,8 +53,7 @@ vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { "vim", "vimdoc", "bash", "c", "lua", "vim", "vimdoc", "query", "javascript", "typescript",
-      "html", "css", "go",
-      "astro", "svelte", "tsx" },
+      "html", "css", "go", "astro", "svelte", "tsx", "terraform" },
     sync_install = false,
     auto_install = true,
     highlight = {
@@ -137,9 +136,10 @@ local servers = {
     }
   },
   marksman = {},
+  cssls = {},
   volar = {
     -- Enable "Take Over Mode" to use volar not just for vue
-    filetypes = { 'html', 'css', 'typescript', 'javascript', 'javascriptreact', 'javascript.jsx',
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'javascript.jsx',
       'typescriptreact',
       'typescript.tsx', 'svelte' }
   },
@@ -185,7 +185,8 @@ local servers = {
   jedi_language_server = {},
   -- Go
   gopls = {},
-  bashls = {}
+  bashls = {},
+  terraformls = {}
 }
 
 -- Setup neovim lua configuration
