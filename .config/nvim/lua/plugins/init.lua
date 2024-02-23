@@ -266,10 +266,27 @@ return {
       end
       nmap('<leader>f', require('telescope.builtin').find_files, 'Find workspace files that are not ignored')
       nmap('<leader>F',
-        function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' }) end,
+        function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'Find All Files' }) end,
         'Find any workspace file')
       nmap('<leader>b', require('telescope.builtin').buffers, 'List open buffers')
-      nmap('<leader>g', require('telescope').extensions.live_grep_args.live_grep_args, 'Search with [g]rep')
+      nmap('<leader>g', require('telescope').extensions.live_grep_args.live_grep_args,
+        'Search with [g]rep files that are not ignored')
+      nmap('<leader>G', function()
+        require('telescope').extensions.live_grep_args.live_grep_args({
+          prompt_title = "Live Grep (Args) All Files",
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            "--no-ignore"
+          }
+        })
+      end, 'Search with [g]rep any workspace file')
       nmap('<leader>H', require('telescope.builtin').oldfiles, 'Open the [H]istory of buffers')
       nmap("<leader>'", require('telescope.builtin').resume, 'Resume telescope session')
       nmap('<leader>"', require('telescope.builtin').pickers, 'List telescope sessions')
